@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Wertugo</string>
+    <string name="welcome_title">Wertugo</string>
+    <string name="welcome_subtitle">Fulfill your wanderlust side</string>
+    <string name="button_daftar">Daftar</string>
+    <string name="text_login_link">Sudah memiliki akun? Login</string>
+    <string name="content_desc_landing">Landing page illustration</string>
+</resources>
