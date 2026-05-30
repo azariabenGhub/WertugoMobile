@@ -2,35 +2,40 @@ package com.example.wertugo.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.wertugo.R;
-import com.example.wertugo.utils.TokenManager;
 
 public class HomeActivity extends AppCompatActivity {
-
-    private TextView tvMessage;
-    private Button btnLogout;
-    private TokenManager tokenManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        tokenManager = new TokenManager(this);
-        tvMessage = findViewById(R.id.tv_message);
-        btnLogout = findViewById(R.id.btn_logout);
+        // Inisialisasi navbar
+        ImageView navHome = findViewById(R.id.nav_home);
+        ImageView navSearch = findViewById(R.id.nav_search);
+        ImageView navMessage = findViewById(R.id.nav_message);
+        ImageView navProfile = findViewById(R.id.nav_profile);
 
-        tvMessage.setText("Anda telah login");
+        // Home aktif (tidak perlu aksi)
+        navHome.setOnClickListener(v -> {
+            // sudah berada di halaman home
+        });
 
-        btnLogout.setOnClickListener(v -> {
-            tokenManager.clearToken();
-            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        navSearch.setOnClickListener(v -> {
+            Toast.makeText(this, "Fitur pencarian belum tersedia", Toast.LENGTH_SHORT).show();
+        });
+
+        navMessage.setOnClickListener(v -> {
+            Toast.makeText(this, "Fitur pesan belum tersedia", Toast.LENGTH_SHORT).show();
+        });
+
+        navProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
             startActivity(intent);
-            finish();
         });
     }
 }

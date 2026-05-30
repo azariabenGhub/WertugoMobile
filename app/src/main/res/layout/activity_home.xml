@@ -1,25 +1,385 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="32dp">
+    android:background="#FFFFFF">
 
-    <TextView
-        android:id="@+id/tv_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Anda telah login"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="32dp" />
+    <!-- Header Beranda dengan tinggi 80dp, judul di tengah -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#008B09">
 
-    <Button
-        android:id="@+id/btn_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        android:textSize="16sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/home_title"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif" />
+    </RelativeLayout>
 
+    <!-- Konten Utama (Scrollable) -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Area Kategori dengan background gambar tinggi 149 dp -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="149dp">
+
+                <!-- Background gambar (ganti dengan drawable Anda) -->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/bg_category"
+                    android:scaleType="centerCrop"
+                     />
+
+                <!-- 3 Tombol kategori di atas background -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:paddingHorizontal="16dp">
+
+                    <!-- Tombol Wisata Alam -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_marginEnd="49dp">
+
+                        <!-- Icon dengan background bulat 63x63 #008B09 -->
+                        <LinearLayout
+                            android:layout_width="63dp"
+                            android:layout_height="63dp"
+                            android:background="@drawable/bg_icon_kategori"
+                            android:gravity="center">
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_wisata_alam"
+                                 />
+                        </LinearLayout>
+
+                        <!-- Teks dengan jarak 5dp dari icon -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Wisata Alam"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Tombol Kuliner & Cafe -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_marginEnd="49dp">
+
+                        <LinearLayout
+                            android:layout_width="63dp"
+                            android:layout_height="63dp"
+                            android:background="@drawable/bg_icon_kategori"
+                            android:gravity="center">
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_kuliner"
+                                 />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Kuliner &amp; Cafe"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Tombol Theme Park -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="63dp"
+                            android:layout_height="63dp"
+                            android:background="@drawable/bg_icon_kategori"
+                            android:gravity="center">
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_theme_park"
+                                 />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Theme Park"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!-- Padding untuk konten di bawah kategori -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Judul Rekomendasi -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="Rekomendasi"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Card 1: Cafe Magdalena -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cafe Magdalena"
+                            android:textColor="#000000"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="📍 JLlangit No.13, Ujung Bumi"
+                            android:textColor="#666666"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="New Coffee Shop in town. Cafe Magdalena. Makanan enak, kopi enak, harga affordable, tempat keren dan live music setiap hari."
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:clickable="true"
+                            android:text="Lihat Selengkapnya →"
+                            android:textColor="#008B09"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Card 2: The Forest -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="The Forest"
+                            android:textColor="#000000"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="📍 Taman Nasional Gunung..."
+                            android:textColor="#666666"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="The Forest adalah salah satu destinasi wisata alam di kabupaten Bogor. Pengelolaan nya di bawah Kementerian KLHK, Balai Taman Nasional Gunung..."
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:clickable="true"
+                            android:text="Lihat Selengkapnya →"
+                            android:textColor="#008B09"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Card 3: Warung Dauhan -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Warung Dauhan"
+                            android:textColor="#000000"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="📍 JL. Sancang No.99"
+                            android:textColor="#666666"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Warung Dauhan adalah tempat jajan paling murah loh! Gak percaya? Coba aja!"
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Navbar Bawah (sama seperti sebelumnya) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="#008B09"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
+
+        <LinearLayout
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/bg_nav_active"
+            android:gravity="center"
+            android:layout_marginEnd="16dp">
+            <ImageView
+                android:id="@+id/nav_home"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_home"
+                android:contentDescription="@string/nav_home"
+                android:clickable="true"
+                android:focusable="true"
+                app:tint="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:gravity="center"
+            android:layout_marginEnd="16dp">
+            <ImageView
+                android:id="@+id/nav_search"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_search"
+                android:contentDescription="@string/nav_search"
+                android:clickable="true"
+                android:focusable="true"
+                app:tint="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:gravity="center"
+            android:layout_marginEnd="16dp">
+            <ImageView
+                android:id="@+id/nav_message"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_message"
+                android:contentDescription="@string/nav_message"
+                android:clickable="true"
+                android:focusable="true"
+                app:tint="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/nav_profile"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_profile"
+                android:contentDescription="@string/nav_profile"
+                android:clickable="true"
+                android:focusable="true"
+                app:tint="#FFFFFF" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

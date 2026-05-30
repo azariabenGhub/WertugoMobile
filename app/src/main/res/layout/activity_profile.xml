@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
+
+    <!-- Header Profile: teks "Profile" di kiri, tombol Logout di kanan -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_profile"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#008B09"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:text="Profile"
+                android:textColor="#FFFFFF"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:text="Logout"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="#D32F2F"
+                app:cornerRadius="20dp"
+                android:paddingHorizontal="12dp" />
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Konten Tengah (sementara kosong, bisa diisi nanti) -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Halaman Profile (Kosong untuk sementara)"
+                android:textSize="16sp"
+                android:textColor="#999999"
+                android:layout_marginTop="32dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- Navbar Bawah (sama seperti home) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="#008B09"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
+
+        <!-- Icon Home -->
+        <LinearLayout
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:gravity="center"
+            android:layout_marginEnd="16dp">
+            <ImageView
+                android:id="@+id/nav_home"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_home"
+                android:contentDescription="@string/nav_home"
+                android:clickable="true"
+                android:focusable="true"
+                app:tint="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- Icon Search -->
+        <LinearLayout
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:gravity="center"
+            android:layout_marginEnd="16dp">
+            <ImageView
+                android:id="@+id/nav_search"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_search"
+                android:contentDescription="@string/nav_search"
+                android:clickable="true"
+                android:focusable="true"
+                app:tint="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- Icon Message -->
+        <LinearLayout
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:gravity="center"
+            android:layout_marginEnd="16dp">
+            <ImageView
+                android:id="@+id/nav_message"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_message"
+                android:contentDescription="@string/nav_message"
+                android:clickable="true"
+                android:focusable="true"
+                app:tint="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- Icon Profile (aktif, dengan background bulat) -->
+        <LinearLayout
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/bg_nav_active"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/nav_profile"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_profile"
+                android:contentDescription="@string/nav_profile"
+                android:clickable="true"
+                android:focusable="true"
+                app:tint="#FFFFFF" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

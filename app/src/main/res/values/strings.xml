@@ -5,4 +5,10 @@
     <string name="button_daftar">Daftar</string>
     <string name="text_login_link">Sudah memiliki akun? Login</string>
     <string name="content_desc_landing">Landing page illustration</string>
+
+    <string name="home_title">Beranda</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_message">Message</string>
+    <string name="nav_profile">Profile</string>
 </resources>
