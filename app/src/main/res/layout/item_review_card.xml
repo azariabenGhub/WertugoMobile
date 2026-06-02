@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:strokeColor="#E0E0E0"
+    app:strokeWidth="1dp"
+    app:cardBackgroundColor="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_reviewer_avatar"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/ic_profile"
+            android:background="#F0F0F0"
+            android:padding="4dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.LargeComponent"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_reviewer_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Raden Mas Galih"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_review_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="27 Feb 2026"
+                    android:textColor="#888888"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+
+                <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_on" app:tint="#FFC107" android:layout_marginEnd="2dp"/>
+                <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_on" app:tint="#FFC107" android:layout_marginEnd="2dp"/>
+                <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_on" app:tint="#FFC107" android:layout_marginEnd="2dp"/>
+                <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_on" app:tint="#FFC107" android:layout_marginEnd="2dp"/>
+                <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_off" app:tint="#D3D3D3"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_review_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Tempatnya cozy, makanannya enak, namun pelayanannya cukup lama."
+                android:textColor="#333333"
+                android:textSize="13sp"
+                android:lineSpacingMultiplier="1.1"/>
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
