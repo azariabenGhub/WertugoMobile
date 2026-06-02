@@ -49,4 +49,7 @@ dependencies {
     implementation(libs.material.v1100)
     implementation(libs.fragment.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
+
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
 }

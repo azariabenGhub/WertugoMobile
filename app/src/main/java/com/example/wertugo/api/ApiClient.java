@@ -12,49 +12,46 @@ import okhttp3.Response;
 import java.io.IOException;
 
 public class ApiClient {
-    // Gunakan IP ini untuk emulator Android
     private static final String BASE_URL = "http://10.0.2.2:8000/api/";
     private static Retrofit retrofit = null;
 
-    public static Retrofit getClient() {
-        if (retrofit == null) {
-            // Gson dengan mode lenient untuk menerima JSON yang sedikit tidak baku
-            Gson gson = new GsonBuilder()
-                    .setLenient()
-                    .create();
+    // Method baru untuk mendapatkan Retrofit dengan token Bearer
+    public static Retrofit getClient(String token) {
+        Gson gson = new GsonBuilder().setLenient().create();
 
-            // Logging interceptor untuk debugging
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-            // Interceptor untuk menambahkan header Accept: application/json
-            Interceptor headerInterceptor = new Interceptor() {
-                @Override
-                public Response intercept(Chain chain) throws IOException {
-                    Request original = chain.request();
-                    Request request = original.newBuilder()
-                            .header("Accept", "application/json")
-                            .method(original.method(), original.body())
-                            .build();
-                    return chain.proceed(request);
-                }
-            };
+        Interceptor authInterceptor = chain -> {
+            Request original = chain.request();
+            Request.Builder builder = original.newBuilder()
+                    .header("Accept", "application/json");
+            if (token != null && !token.isEmpty()) {
+                builder.header("Authorization", "Bearer " + token);
+            }
+            return chain.proceed(builder.build());
+        };
 
-            OkHttpClient client = new OkHttpClient.Builder()
-                    .addInterceptor(headerInterceptor)
-                    .addInterceptor(logging)
-                    .build();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(authInterceptor)
+                .addInterceptor(logging)
+                .build();
 
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .client(client)
-                    .build();
-        }
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(client)
+                .build();
         return retrofit;
     }
 
+    // Untuk request tanpa token (login, register)
     public static ApiService getApiService() {
-        return getClient().create(ApiService.class);
+        return getClient(null).create(ApiService.class);
+    }
+
+    // Untuk request dengan token
+    public static ApiService getApiService(String token) {
+        return getClient(token).create(ApiService.class);
     }
 }

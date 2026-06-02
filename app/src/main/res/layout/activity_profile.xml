@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#FFFFFF">
 
-    <!-- Header Profile: teks "Profile" di kiri, tombol Logout di kanan -->
+    <!-- ==================== HEADER (Rectangle 3) ==================== -->
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_profile"
-        android:layout_width="match_parent"
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
         android:layout_height="80dp"
         android:background="#008B09"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <TextView
                 android:id="@+id/tv_toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="16dp"
-                android:text="Profile"
+                android:layout_marginStart="11dp"
+                android:text="User Profile"
                 android:textColor="#FFFFFF"
-                android:textSize="40sp"
-                android:textStyle="bold" />
-
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif" />
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_logout"
                 android:layout_width="wrap_content"
@@ -42,113 +42,416 @@
                 app:backgroundTint="#D32F2F"
                 app:cornerRadius="20dp"
                 android:paddingHorizontal="12dp" />
-
         </RelativeLayout>
-
     </androidx.appcompat.widget.Toolbar>
 
-    <!-- Konten Tengah (sementara kosong, bisa diisi nanti) -->
+    <!-- ==================== SCROLLVIEW (Konten Utama) ==================== -->
     <ScrollView
-        android:layout_width="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="16dp">
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/navbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:paddingBottom="32dp">
 
-            <TextView
+            <!-- FOTO PROFIL -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_profile_pic"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:cardCornerRadius="75dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="29dp">
+                <ImageView
+                    android:id="@+id/iv_profile_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_default_profile"
+                    android:contentDescription="@string/profile_picture" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- FIELD USERNAME (Frame 80) -->
+            <LinearLayout
+                android:id="@+id/layout_username"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginEnd="19dp"
+                android:layout_marginTop="26dp"
+                android:background="@drawable/border_green_rounded"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="32dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_profile_pic">
+
+                <EditText
+                    android:id="@+id/et_username"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="User 001|"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:background="@null"
+                    android:padding="0dp"
+                    android:inputType="textPersonName"
+                    android:singleLine="true" />
+
+                <ImageView
+                    android:id="@+id/iv_edit_username"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_feather"
+                    android:contentDescription="@string/edit_username" />
+            </LinearLayout>
+
+            <!-- LABEL ACCOUNT INFO (Frame 79) -->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/btn_account_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Halaman Profile (Kosong untuk sementara)"
-                android:textSize="16sp"
-                android:textColor="#999999"
-                android:layout_marginTop="32dp" />
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_account_info"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_username">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Account Info"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:fontFamily="sans-serif" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-        </LinearLayout>
+            <!-- CARD NEGARA (Group 43) -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_negara"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="44dp"
+                android:layout_marginEnd="39dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="32dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_account_info">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="32dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="32dp"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Negara :"
+                        android:textColor="#000000"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="38dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/border_green_rounded_shadow"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="8dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/et_country"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:inputType="text"
+                            android:padding="0dp"
+                            android:singleLine="true"
+                            android:text="Indonesia"
+                            android:textColor="#000000"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_dropdown" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- CARD EMAIL (Group 45) -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_email"
+                android:layout_width="0dp"
+                android:layout_height="137dp"
+                android:layout_marginStart="44dp"
+                android:layout_marginEnd="39dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="32dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_negara">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_green_rounded_shadow"
+                    android:paddingStart="32dp"
+                    android:paddingEnd="32dp">
+
+                    <TextView
+                        android:id="@+id/label_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Email :"
+                        android:textSize="15sp"
+                        android:textColor="#000000"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="16dp" />
+
+                    <LinearLayout
+                        android:id="@+id/email_field"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/border_green_rounded_shadow"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/label_email">
+
+                        <TextView
+                            android:id="@+id/tv_email"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="user001@gmail.com"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="#000000"
+                            android:textDecoration="underline" />
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_change_email"
+                        android:layout_width="0dp"
+                        android:layout_height="47dp"
+                        android:text="Ganti Email"
+                        android:textSize="12sp"
+                        android:textColor="#FFFFFF"
+                        app:backgroundTint="#008B09"
+                        app:cornerRadius="32dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/email_field"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginBottom="16dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- CARD PASSWORD (Group 47) -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_password"
+                android:layout_width="0dp"
+                android:layout_height="145dp"
+                android:layout_marginStart="44dp"
+                android:layout_marginEnd="39dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="32dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_email">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_green_rounded_shadow"
+                    android:paddingStart="32dp"
+                    android:paddingEnd="32dp">
+
+                    <TextView
+                        android:id="@+id/label_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Password :"
+                        android:textSize="15sp"
+                        android:textColor="#000000"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="16dp" />
+
+                    <LinearLayout
+                        android:id="@+id/password_field"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/border_green_rounded_shadow"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/label_password">
+
+                        <TextView
+                            android:id="@+id/tv_password"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="**********"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_change_password"
+                        android:layout_width="0dp"
+                        android:layout_height="47dp"
+                        android:text="Ganti Password"
+                        android:textSize="12sp"
+                        android:textColor="#FFFFFF"
+                        app:backgroundTint="#008B09"
+                        app:cornerRadius="32dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/password_field"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginBottom="16dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- TOMBOL SIMPAN PERUBAHAN -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_save"
+                android:layout_width="0dp"
+                android:layout_height="47dp"
+                android:layout_marginStart="73dp"
+                android:layout_marginEnd="73dp"
+                android:layout_marginTop="32dp"
+                android:text="Simpan Perubahan"
+                android:textSize="12sp"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="#008B09"
+                app:cornerRadius="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_password" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <!-- Navbar Bawah (sama seperti home) -->
+    <!-- ==================== NAVBAR BAWAH (tetap di bawah) ==================== -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/navbar"
+        android:layout_width="0dp"
         android:layout_height="90dp"
         android:background="#008B09"
-        android:gravity="center"
         android:orientation="horizontal"
-        android:paddingHorizontal="16dp">
+        android:gravity="center"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <!-- Icon Home -->
         <LinearLayout
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:gravity="center"
-            android:layout_marginEnd="16dp">
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_nav_inactive">
             <ImageView
                 android:id="@+id/nav_home"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_home"
                 android:contentDescription="@string/nav_home"
-                android:clickable="true"
-                android:focusable="true"
                 app:tint="#FFFFFF" />
         </LinearLayout>
 
-        <!-- Icon Search -->
         <LinearLayout
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:gravity="center"
-            android:layout_marginEnd="16dp">
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_nav_inactive">
             <ImageView
                 android:id="@+id/nav_search"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_search"
                 android:contentDescription="@string/nav_search"
-                android:clickable="true"
-                android:focusable="true"
                 app:tint="#FFFFFF" />
         </LinearLayout>
 
-        <!-- Icon Message -->
         <LinearLayout
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:gravity="center"
-            android:layout_marginEnd="16dp">
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_nav_inactive">
             <ImageView
                 android:id="@+id/nav_message"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_message"
                 android:contentDescription="@string/nav_message"
-                android:clickable="true"
-                android:focusable="true"
                 app:tint="#FFFFFF" />
         </LinearLayout>
 
-        <!-- Icon Profile (aktif, dengan background bulat) -->
         <LinearLayout
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:background="@drawable/bg_nav_active"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="@drawable/bg_nav_active">
             <ImageView
                 android:id="@+id/nav_profile"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_profile"
                 android:contentDescription="@string/nav_profile"
-                android:clickable="true"
-                android:focusable="true"
                 app:tint="#FFFFFF" />
         </LinearLayout>
-
     </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,8 +8,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wertugo.R;
+import com.example.wertugo.api.ApiClient;
+import com.example.wertugo.api.ApiService;
 import com.example.wertugo.utils.TokenManager;
 import com.google.android.material.button.MaterialButton;
+import retrofit2.Callback;
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -52,11 +57,42 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void logout() {
-        tokenManager.clearToken();
+        String token = tokenManager.getToken();
+        if (token == null) {
+            // Token sudah tidak ada, langsung navigasi
+            navigateToLogin();
+            return;
+        }
+
+        ApiService apiService = ApiClient.getApiService(token);
+        Call<Void> call = apiService.logout();
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                // Hapus token lokal terlepas dari sukses/gagal (kecuali server error 5xx?)
+                tokenManager.clearToken();
+                navigateToLogin();
+                if (response.isSuccessful()) {
+                    Toast.makeText(ProfileActivity.this, "Logout berhasil", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ProfileActivity.this, "Logout server gagal, sesi lokal tetap dihapus", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Gagal network: tetap logout lokal
+                tokenManager.clearToken();
+                navigateToLogin();
+                Toast.makeText(ProfileActivity.this, "Error: " + t.getMessage() + ", logout lokal", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void navigateToLogin() {
         Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
-        Toast.makeText(this, "Logout berhasil", Toast.LENGTH_SHORT).show();
     }
 }

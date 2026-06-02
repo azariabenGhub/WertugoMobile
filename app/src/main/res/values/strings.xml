@@ -1,14 +1,24 @@
 <resources>
+    <!-- Default app name -->
     <string name="app_name">Wertugo</string>
+
+    <!-- Profile Activity -->
+    <string name="profile_picture">Foto Profil</string>
+    <string name="edit_username">Edit Nama Pengguna</string>
+    <string name="nav_home">Beranda</string>
+    <string name="nav_search">Pencarian</string>
+    <string name="nav_message">Pesan</string>
+    <string name="nav_profile">Profil</string>
+
+    <!-- Opsional: Tambahan untuk Register, Login, dsb (bisa ditambah sesuai kebutuhan) -->
+    <string name="content_desc_landing">Gambar latar wisata</string>
     <string name="welcome_title">Wertugo</string>
     <string name="welcome_subtitle">Fulfill your wanderlust side</string>
     <string name="button_daftar">Daftar</string>
     <string name="text_login_link">Sudah memiliki akun? Login</string>
-    <string name="content_desc_landing">Landing page illustration</string>
-
     <string name="home_title">Beranda</string>
-    <string name="nav_home">Home</string>
-    <string name="nav_search">Search</string>
-    <string name="nav_message">Message</string>
-    <string name="nav_profile">Profile</string>
+    <string name="wisata_alam">Wisata Alam</string>
+    <string name="kuliner_cafe">Kuliner &amp; Cafe</string>
+    <string name="theme_park">Theme Park</string>
+    <string name="bg_kategori_desc">Background kategori wisata</string>
 </resources>
