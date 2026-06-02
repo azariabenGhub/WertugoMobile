@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F9FA"
+    tools:context=".UmkmEditOperationalActivity">
+
+    <!-- CONTENT FORM SCROLLABLE -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/layout_buttons_action">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="32dp"
+            android:paddingVertical="40dp">
+
+            <!-- JUDUL HALAMAN -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit Jam Operasional"
+                android:textColor="@color/black"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-black"
+                android:layout_marginBottom="32dp" />
+
+            <!-- ========================================== -->
+            <!-- SECTION JAM BUKA                           -->
+            <!-- ========================================== -->
+            <TextView android:text="Jam Buka" android:textColor="@color/black" android:textSize="12sp" android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="20dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="6dp"
+                    app:boxCornerRadiusTopStart="12dp" app:boxCornerRadiusTopEnd="12dp" app:boxCornerRadiusBottomStart="12dp" app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxStrokeColor="#008B09" app:hintEnabled="false">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_jam_buka_jam" android:layout_width="match_parent" android:layout_height="44dp" android:paddingVertical="8dp" android:text="10" android:gravity="center" android:textColor="@color/black" android:textSize="14sp" android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="6dp"
+                    app:boxCornerRadiusTopStart="12dp" app:boxCornerRadiusTopEnd="12dp" app:boxCornerRadiusBottomStart="12dp" app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxStrokeColor="#008B09" app:hintEnabled="false">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_jam_buka_menit" android:layout_width="match_parent" android:layout_height="44dp" android:paddingVertical="8dp" android:text="00" android:gravity="center" android:textColor="@color/black" android:textSize="14sp" android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- ========================================== -->
+            <!-- SECTION JAM TUTUP                          -->
+            <!-- ========================================== -->
+            <TextView android:text="Jam Tutup" android:textColor="@color/black" android:textSize="12sp" android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="24dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="6dp"
+                    app:boxCornerRadiusTopStart="12dp" app:boxCornerRadiusTopEnd="12dp" app:boxCornerRadiusBottomStart="12dp" app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxStrokeColor="#008B09" app:hintEnabled="false">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_jam_tutup_jam" android:layout_width="match_parent" android:layout_height="44dp" android:paddingVertical="8dp" android:text="20" android:gravity="center" android:textColor="@color/black" android:textSize="14sp" android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="6dp"
+                    app:boxCornerRadiusTopStart="12dp" app:boxCornerRadiusTopEnd="12dp" app:boxCornerRadiusBottomStart="12dp" app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxStrokeColor="#008B09" app:hintEnabled="false">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_jam_tutup_menit" android:layout_width="match_parent" android:layout_height="44dp" android:paddingVertical="8dp" android:text="00" android:gravity="center" android:textColor="@color/black" android:textSize="14sp" android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- ========================================== -->
+            <!-- SECTION HARI BUKA                          -->
+            <!-- ========================================== -->
+            <TextView android:text="Hari Buka" android:textColor="@color/black" android:textSize="12sp" android:textStyle="bold" android:layout_marginBottom="12dp" />
+
+            <!-- Senin (Buka - Hijau) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_day_senin" android:layout_width="match_parent" android:layout_height="40dp" android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp" app:cardBackgroundColor="#008B09" app:cardElevation="0dp" app:strokeWidth="0dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Senin" android:textColor="#FFFFFF" android:textSize="13sp" android:layout_gravity="center_vertical" android:layout_marginStart="16dp"/>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Selasa (Buka - Hijau) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_day_selasa" android:layout_width="match_parent" android:layout_height="40dp" android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp" app:cardBackgroundColor="#008B09" app:cardElevation="0dp" app:strokeWidth="0dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Selasa" android:textColor="#FFFFFF" android:textSize="13sp" android:layout_gravity="center_vertical" android:layout_marginStart="16dp"/>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Rabu (Buka - Hijau) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_day_rabu" android:layout_width="match_parent" android:layout_height="40dp" android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp" app:cardBackgroundColor="#008B09" app:cardElevation="0dp" app:strokeWidth="0dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rabu" android:textColor="#FFFFFF" android:textSize="13sp" android:layout_gravity="center_vertical" android:layout_marginStart="16dp"/>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Kamis (Buka - Hijau) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_day_kamis" android:layout_width="match_parent" android:layout_height="40dp" android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp" app:cardBackgroundColor="#008B09" app:cardElevation="0dp" app:strokeWidth="0dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Kamis" android:textColor="#FFFFFF" android:textSize="13sp" android:layout_gravity="center_vertical" android:layout_marginStart="16dp"/>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Jumat (Buka - Hijau) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_day_jumat" android:layout_width="match_parent" android:layout_height="40dp" android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp" app:cardBackgroundColor="#008B09" app:cardElevation="0dp" app:strokeWidth="0dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Jumat" android:textColor="#FFFFFF" android:textSize="13sp" android:layout_gravity="center_vertical" android:layout_marginStart="16dp"/>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Sabtu (Tutup - Putih stroke Hijau) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_day_sabtu" android:layout_width="match_parent" android:layout_height="40dp" android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/white" app:cardElevation="0dp" app:strokeColor="#008B09" app:strokeWidth="1dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sabtu" android:textColor="#008B09" android:textSize="13sp" android:layout_gravity="center_vertical" android:layout_marginStart="16dp"/>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Minggu (Tutup - Putih stroke Hijau) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_day_minggu" android:layout_width="match_parent" android:layout_height="40dp" android:layout_marginBottom="16dp"
+                app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/white" app:cardElevation="0dp" app:strokeColor="#008B09" app:strokeWidth="1dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Minggu" android:textColor="#008B09" android:textSize="13sp" android:layout_gravity="center_vertical" android:layout_marginStart="16dp"/>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- ACTION BUTTON BAR (Kembali & Konfirmasi) -->
+    <LinearLayout
+        android:id="@+id/layout_buttons_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="32dp"
+        android:paddingVertical="16dp"
+        android:weightSum="2"
+        android:background="#F8F9FA"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav_view">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_edit_operational_batal"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:text="Kembali"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:backgroundTint="#888888"
+            app:cornerRadius="24dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_edit_operational_konfirmasi"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="Konfirmasi"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:backgroundTint="#008B09"
+            app:cornerRadius="24dp" />
+    </LinearLayout>
+
+    <!-- FIXED BOTTOM NAV -->
+    <include
+        android:id="@+id/bottom_nav_view"
+        layout="@layout/layout_bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
