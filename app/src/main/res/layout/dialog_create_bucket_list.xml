@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="340dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    app:cardCornerRadius="24dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="8dp"
+    app:strokeWidth="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <!-- Tombol Close Silang (X) Pojok Kiri Atas -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/btn_close_create_dialog"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:background="#D1D1D6"
+            android:padding="6dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:tint="@color/black"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.LargeComponent" />
+
+        <!-- Judul Dialog -->
+        <TextView
+            android:id="@+id/tv_dialog_create_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_close_create_dialog"
+            android:layout_marginTop="12dp"
+            android:text="Buat Bucket List"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:fontFamily="sans-serif-black" />
+
+        <!-- Deskripsi/Keterangan -->
+        <TextView
+            android:id="@+id/tv_dialog_create_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_dialog_create_title"
+            android:layout_marginTop="8dp"
+            android:text="Kamu dapat mengundang teman ke dalam bucket list mu"
+            android:textColor="#555555"
+            android:textSize="11sp"
+            android:gravity="center" />
+
+        <!-- GRID TAB ACTION BUTTONS (Buat vs Gabung) -->
+        <LinearLayout
+            android:id="@+id/layout_dialog_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/tv_dialog_create_desc"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <!-- Tab 1: Buat (Active - Hijau Pekat) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_tab_mode_buat"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:text="Buat"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                app:backgroundTint="#008B09"
+                app:cornerRadius="10dp" />
+
+            <!-- Tab 2: Gabung (Inactive - Hijau Faded) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_tab_mode_gabung"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:text="Gabung"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                app:backgroundTint="#7BCD81"
+                app:cornerRadius="10dp" />
+        </LinearLayout>
+
+        <!-- INPUT SECTION HARI: NAMA BUCKET LIST -->
+        <TextView
+            android:id="@+id/tv_lbl_nama_bucket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_dialog_tabs"
+            android:layout_marginTop="24dp"
+            android:text="Nama Bucket List"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_wrapper_bucket_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_lbl_nama_bucket"
+            android:layout_marginTop="8dp"
+            app:boxCornerRadiusTopStart="10dp" app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp" app:boxCornerRadiusBottomEnd="10dp"
+            app:boxStrokeColor="#008B09" app:hintEnabled="false">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_new_bucket_name"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:paddingVertical="8dp"
+                android:text="Bucket List 1"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- SUBMIT ACTION BUTTON -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_dialog_action_submit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/input_wrapper_bucket_name"
+            android:layout_marginTop="24dp"
+            android:text="Buat"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:backgroundTint="#008B09"
+            app:cornerRadius="24dp" />
+
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

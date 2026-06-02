@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F9FA"
+    tools:context=".SearchActivity">
+
+    <!-- LAYER 1: KONTEN UTAMA (REKOMENDASI TEMPAT) -->
+    <ScrollView
+        android:id="@+id/scroll_main_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/layout_search_header"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav_view">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Is there a place You want to go?"
+                android:textColor="#333333"
+                android:textSize="18sp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rekomendasi"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- CONTOH ITEM CARD 1: CAFE MAGDALENA -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="24dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Foto Tempat -->
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="140dp"
+                        android:layout_height="95dp"
+                        android:src="@drawable/ic_profile"
+                        android:background="#DDDDDD"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.MediumComponent"/>
+
+                    <!-- Detail Info -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginStart="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cafe Magdalena"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Jl. Langit No.13, Ujung Bumi"
+                            android:textColor="#666666"
+                            android:textSize="11sp"
+                            android:layout_marginTop="2dp"
+                            app:drawableStartCompat="@android:drawable/ic_menu_mylocation"
+                            app:drawableTint="#666666"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="New Coffee Shop in town. Cafe Magdalena. Makanan enak, kopi enak, harga affordable..."
+                            android:textColor="#444444"
+                            android:textSize="11sp"
+                            android:layout_marginTop="6dp"
+                            android:maxLines="3"
+                            android:ellipsize="end"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Baris Rating & Action Button -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_alignParentStart="true">
+                        <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@android:drawable/btn_star_big_on" app:tint="@color/black"/>
+                        <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@android:drawable/btn_star_big_on" app:tint="@color/black"/>
+                        <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@android:drawable/btn_star_big_on" app:tint="@color/black"/>
+                        <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@android:drawable/btn_star_big_on" app:tint="@color/black"/>
+                        <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@android:drawable/btn_star_big_on" app:tint="@color/black"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="Lihat Selengkapnya →"
+                        android:textColor="#008B09"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:clickable="true"
+                        android:focusable="true"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- LAYER 2: BOTTOM NAVIGATION BAR -->
+    <include
+        android:id="@+id/bottom_nav_view"
+        layout="@layout/layout_bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <!-- LAYER 3: DIMMING OVERLAY SCREEN (Meredupkan Seluruh Layar di Bawah Header) -->
+    <!-- Default set ke "gone", aktifkan melalui Java saat pencarian aktif -->
+    <View
+        android:id="@+id/view_dim_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#B3000000"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/layout_search_header"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- LAYER 4: CONTAINER HEADER (Kolom Search Harus Tetap Terang di Atas Overlay) -->
+    <LinearLayout
+        android:id="@+id/layout_search_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="32dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Kolom Input Pencarian -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            app:cardCornerRadius="10dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardElevation="0dp"
+            app:strokeColor="#008B09"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="12dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@android:drawable/ic_menu_search"
+                    app:tint="@color/black" />
+
+                <EditText
+                    android:id="@+id/et_search_place"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:background="@android:color/transparent"
+                    android:hint="Search a Place"
+                    android:textColor="@color/black"
+                    android:textColorHint="#888888"
+                    android:textSize="14sp"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <!-- LAYER 5: FLOATING SUGGESTION CARD (Dropdown Muncul Tepat di Bawah Header) -->
+    <!-- Default set ke "gone", diaktifkan bersamaan dengan overlay -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_search_suggestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:cardCornerRadius="8dp"
+        app:cardBackgroundColor="#008B09"
+        app:cardElevation="6dp"
+        app:strokeWidth="0dp"
+        app:layout_constraintTop_toBottomOf="@id/layout_search_header">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_toStartOf="@+id/layout_suggestion_rating"
+                android:layout_alignParentStart="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cafe Penalama Surya Kencana"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bogor, Jawa Barat"
+                    android:textColor="#E0F2E9"
+                    android:textSize="11sp"
+                    android:layout_marginTop="4dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Category: Food"
+                    android:textColor="#E0F2E9"
+                    android:textSize="11sp"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_suggestion_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="8,5/10"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="4dp"/>
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@android:drawable/btn_star_big_on"
+                    app:tint="@color/black" />
+            </LinearLayout>
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".PlaceDetailUserActivity">
+
+    <!-- LAYER 1: KONTEN UTAMA SCROLLABLE -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/layout_search_header"
+        app:layout_constraintBottom_toTopOf="@id/layout_user_navbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- FOTO UTAMA TEMPAT -->
+            <ImageView
+                android:id="@+id/iv_place_detail"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:src="@drawable/bg_category"
+                android:scaleType="centerCrop"
+                tools:ignore="ContentDescription" />
+
+            <!-- CONTAINER INFORMASI -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <!-- Nama Tempat -->
+                <TextView
+                    android:id="@+id/tv_detail_nama_tempat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cafe Penalama Surya Kencana"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-black" />
+
+                <!-- Detail Baris 1: Alamat -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="16dp">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@android:drawable/ic_menu_mylocation" app:tint="@color/black"/>
+                    <TextView android:id="@+id/tv_detail_alamat" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:text="Ini Alamat Tempatnya" android:textColor="#444444" android:textSize="14sp"/>
+                </LinearLayout>
+
+                <!-- Detail Baris 2: Deskripsi -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="top"
+                    android:layout_marginTop="12dp">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:layout_marginTop="2dp" android:src="@android:drawable/ic_menu_agenda" app:tint="@color/black"/>
+                    <TextView android:id="@+id/tv_detail_deskripsi" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:text="Ini Deskripsi Pribadi tentang tempat, bisa buat menaruh link sosmed, detail lokasi, dan sebagainya" android:textColor="#444444" android:textSize="14sp" android:lineSpacingMultiplier="1.1"/>
+                </LinearLayout>
+
+                <!-- Detail Baris 3: Kategori -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="12dp">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@android:drawable/ic_menu_compass" app:tint="@color/black"/>
+                    <TextView android:id="@+id/tv_detail_kategori" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:text="Culinary" android:textColor="#444444" android:textSize="14sp"/>
+                </LinearLayout>
+
+                <!-- RATING INTERAKTIF SECTION -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="28dp"
+                    android:text="How's the place? Give a rate down below!"
+                    android:textColor="#555555"
+                    android:textSize="14sp" />
+
+                <!-- Komponen RatingBar Bintang (Otomatis handle star outline/full) -->
+                <RatingBar
+                    android:id="@+id/rating_bar_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:numStars="5"
+                    android:stepSize="1.0"
+                    android:rating="0"
+                    android:theme="@style/Widget.AppCompat.RatingBar" />
+
+                <!-- INPUT KOMENTAR SECTION -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@android:drawable/stat_notify_chat"
+                        app:tint="@color/black"
+                        tools:ignore="ContentDescription" />
+
+                    <!-- Input Box Membulat -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_marginStart="12dp"
+                        app:cardCornerRadius="27dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardElevation="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="1dp">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingHorizontal="20dp">
+                            <EditText
+                                android:id="@+id/et_comment_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_toStartOf="@id/btn_send_comment"
+                                android:background="@android:color/transparent"
+                                android:hint="Post a comment . . ."
+                                android:textColorHint="#888888"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:inputType="textShortMessage" />
+                            <ImageView
+                                android:id="@+id/btn_send_comment"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@android:drawable/ic_menu_send"
+                                app:tint="@color/black"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                tools:ignore="ContentDescription" />
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <!-- TRIGGER TOMBOL SEE / CLOSE COMMENTS -->
+                <TextView
+                    android:id="@+id/tv_toggle_comments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="See all comments"
+                    android:textColor="#555555"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
+                <!-- LIST KOMENTAR CONTAINER (Bisa disembunyikan/muncul dinamis) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/layout_comments_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:id="@+id/container_comment_items"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Item Komen 1 -->
+                        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp">
+                            <ImageView android:id="@+id/avatar1" android:layout_width="36dp" android:layout_height="36dp" android:src="@drawable/ic_profile" app:tint="@color/black"/>
+                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_toEndof="@id/avatar1" android:layout_toStartOf="@id/rate1" android:layout_marginStart="12dp">
+                                <TextView android:text="User001" android:textColor="@color/black" android:textStyle="bold" android:textSize="13sp"/>
+                                <TextView android:text="Nice place! what a good spot to attend, I would like to come here again." android:textColor="#444444" android:textSize="12sp" android:layout_marginTop="2dp"/>
+                            </LinearLayout>
+                            <TextView android:id="@+id/rate1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="★ 4/5" android:textColor="@color/black" android:textStyle="bold" android:textSize="13sp"/>
+                        </RelativeLayout>
+
+                        <!-- Item Komen 2 -->
+                        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                            <ImageView android:id="@+id/avatar2" android:layout_width="36dp" android:layout_height="36dp" android:src="@drawable/ic_profile" app:tint="@color/black"/>
+                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_toEndof="@id/avatar2" android:layout_toStartOf="@id/rate2" android:layout_marginStart="12dp">
+                                <TextView android:text="User002" android:textColor="@color/black" android:textStyle="bold" android:textSize="13sp"/>
+                                <TextView android:text="I'll definetely come here again!" android:textColor="#444444" android:textSize="12sp" android:layout_marginTop="2dp"/>
+                            </LinearLayout>
+                            <TextView android:id="@+id/rate2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="★ 5/5" android:textColor="@color/black" android:textStyle="bold" android:textSize="13sp"/>
+                        </RelativeLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- BUTTON CTA: ADD TO BUCKET LIST -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_add_bucket_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Add to Bucket List!"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:backgroundTint="#008B09"
+                    app:cornerRadius="24dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- LAYER 2: NAVBAR BAWAH (4 IKON - Mengunci di dasar layar) -->
+    <LinearLayout
+        android:id="@+id/layout_user_navbar"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="#008B09"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        android:gravity="center"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <LinearLayout android:layout_width="75dp" android:layout_height="75dp" android:gravity="center" android:layout_marginEnd="16dp">
+            <ImageView android:id="@+id/nav_home" android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/ic_home" app:tint="#FFFFFF" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="75dp" android:layout_height="75dp" android:background="@drawable/bg_nav_active" android:gravity="center" android:layout_marginEnd="16dp">
+            <ImageView android:id="@+id/nav_search" android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/ic_search" app:tint="#FFFFFF" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="75dp" android:layout_height="75dp" android:gravity="center" android:layout_marginEnd="16dp">
+            <ImageView android:id="@+id/nav_message" android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/ic_message" app:tint="#FFFFFF" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="75dp" android:layout_height="75dp" android:gravity="center">
+            <ImageView android:id="@+id/nav_profile" android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/ic_profile" app:tint="#FFFFFF" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- LAYER 3: HEADER BAR SEARCH (Paling Atas) -->
+    <RelativeLayout
+        android:id="@+id/layout_search_header"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/white"
+        android:paddingHorizontal="24dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:cardCornerRadius="10dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardElevation="0dp"
+            app:strokeColor="#008B09"
+            app:strokeWidth="1dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="12dp">
+                <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_menu_search" app:tint="@color/black" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Cafe Penalama"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

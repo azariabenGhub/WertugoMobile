@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    app:cardCornerRadius="16dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="8dp"
+    app:strokeWidth="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Judul Dialog -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buat Kategori"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Input Nama Kategori -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="16dp"
+            app:boxCornerRadiusTopStart="10dp" app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp" app:boxCornerRadiusBottomEnd="10dp"
+            app:boxStrokeColor="#008B09" app:hintEnabled="false">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_input_kategori_baru"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:paddingVertical="8dp"
+                android:hint="Masukkan nama kategori"
+                android:textColorHint="#888888"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Sub-Judul Kategori Tersimpan -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kategori yang telah dibuat"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Tumpukan Chips Kategori Warna-Warni -->
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_categories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:chipSpacingHorizontal="6dp"
+            app:chipSpacingVertical="4dp">
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Culinary"
+                android:textColor="@color/white"
+                app:chipBackgroundColor="#3CA0E1"
+                app:closeIconVisible="true"
+                app:closeIconTint="@color/white"
+                app:chipCornerRadius="16dp"/>
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Family"
+                android:textColor="@color/white"
+                app:chipBackgroundColor="#FF9100"
+                app:closeIconVisible="true"
+                app:closeIconTint="@color/white"
+                app:chipCornerRadius="16dp"/>
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hiking"
+                android:textColor="@color/white"
+                app:chipBackgroundColor="#A0522D"
+                app:closeIconVisible="true"
+                app:closeIconTint="@color/white"
+                app:chipCornerRadius="16dp"/>
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Penginapan"
+                android:textColor="@color/white"
+                app:chipBackgroundColor="#008B09"
+                app:closeIconVisible="true"
+                app:closeIconTint="@color/white"
+                app:chipCornerRadius="16dp"/>
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- Tombol Aksi -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_confirm_kategori"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:text="Konfirmasi"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:backgroundTint="#008B09"
+                app:cornerRadius="22dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_batal_kategori"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:text="Batal"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:backgroundTint="#E74C3C"
+                app:cornerRadius="22dp" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

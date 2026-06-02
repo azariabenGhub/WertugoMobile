@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="340dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    app:cardCornerRadius="24dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="8dp"
+    app:strokeWidth="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/btn_close_dialog"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:background="#D1D1D6"
+            android:padding="6dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:tint="@color/black"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.LargeComponent" />
+
+        <TextView
+            android:id="@+id/tv_dialog_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_close_dialog"
+            android:layout_marginTop="16dp"
+            android:text="Tambahkan ke\nBucket List-mu!"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.1"/>
+
+        <TextView
+            android:id="@+id/tv_dialog_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_dialog_title"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="16dp"
+            android:text="Pilih Room Bucket List-mu"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_dialog_subtitle"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_select_bucket1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="#3CA0E1"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Bucket List 1" android:textColor="#FFFFFF" android:textStyle="bold" android:textSize="14sp" android:layout_gravity="center_vertical" android:layout_marginStart="20dp"/>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_select_bucket2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="#3CA0E1"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Bucket List 2" android:textColor="#FFFFFF" android:textStyle="bold" android:textSize="14sp" android:layout_gravity="center_vertical" android:layout_marginStart="20dp"/>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_select_bucket3"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="#3CA0E1"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Bucket List 3" android:textColor="#FFFFFF" android:textStyle="bold" android:textSize="14sp" android:layout_gravity="center_vertical" android:layout_marginStart="20dp"/>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_select_bucket4"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="#3CA0E1"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Bucket List 4" android:textColor="#FFFFFF" android:textStyle="bold" android:textSize="14sp" android:layout_gravity="center_vertical" android:layout_marginStart="20dp"/>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_select_bucket5"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="#3CA0E1"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Bucket List 5" android:textColor="#FFFFFF" android:textStyle="bold" android:textSize="14sp" android:layout_gravity="center_vertical" android:layout_marginStart="20dp"/>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

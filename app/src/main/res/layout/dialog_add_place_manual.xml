@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="340dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    app:cardCornerRadius="24dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="8dp"
+    app:strokeWidth="0dp">
+
+    <!-- Scrollable Form Container -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="540dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- 1. FIELD NAMA TEMPAT -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama Tempat"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="16dp"
+                app:boxCornerRadiusTopStart="10dp" app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp" app:boxCornerRadiusBottomEnd="10dp"
+                app:boxStrokeColor="#008B09" app:hintEnabled="false">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_manual_nama_tempat"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:paddingVertical="8dp"
+                    android:hint="Nama Tempat"
+                    android:textColorHint="#888888"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 2. FIELD LOKASI -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lokasi"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="16dp"
+                app:boxCornerRadiusTopStart="10dp" app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp" app:boxCornerRadiusBottomEnd="10dp"
+                app:boxStrokeColor="#008B09" app:hintEnabled="false">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_manual_lokasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:paddingVertical="8dp"
+                    android:hint="Lokasi Tempat"
+                    android:textColorHint="#888888"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 3. FIELD DESKRIPSI TEMPAT (Box Tinggi Besar) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Deskripsi Tempat"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="16dp"
+                app:boxCornerRadiusTopStart="12dp" app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp" app:boxCornerRadiusBottomEnd="12dp"
+                app:boxStrokeColor="#008B09" app:hintEnabled="false">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_manual_deskripsi"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:gravity="top|start"
+                    android:padding="12dp"
+                    android:hint="Deskripsi Tempat"
+                    android:textColorHint="#888888"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:inputType="textMultiLine" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 4. FIELD KATEGORI TEMPAT (Dropdown Spinner Style) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kategori Tempat"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="16dp"
+                app:boxCornerRadiusTopStart="10dp" app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp" app:boxCornerRadiusBottomEnd="10dp"
+                app:boxStrokeColor="#008B09" app:hintEnabled="false">
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_manual_kategori"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:paddingVertical="8dp"
+                    android:hint="Pilih Kategori Tempat"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 5. FIELD GAMBAR TEMPAT (Upload Outlined Box) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gambar Tempat (Opsional)"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_manual_upload_gambar"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="0dp"
+                app:strokeColor="#008B09"
+                app:strokeWidth="1dp"
+                android:clickable="true"
+                android:focusable="true">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="16dp">
+                    <TextView
+                        android:id="@+id/tv_manual_image_filename"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Upload gambar"
+                        android:textColor="#3CA0E1"
+                        android:textSize="14sp"
+                        android:layout_centerVertical="true"/>
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@android:drawable/ic_menu_upload"
+                        app:tint="#3CA0E1"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        tools:ignore="ContentDescription" />
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ACTION BUTTONS GRID -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <!-- Tombol Tambah (Hijau) -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_manual_submit_tambah"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:text="Tambah"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:backgroundTint="#008B09"
+                    app:cornerRadius="22dp" />
+
+                <!-- Tombol Batal (Merah Coral) -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_manual_submit_batal"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:text="Batal"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:backgroundTint="#E74C3C"
+                    app:cornerRadius="22dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</com.google.android.material.card.MaterialCardView>
