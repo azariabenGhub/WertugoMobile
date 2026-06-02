@@ -264,8 +264,8 @@
                             android:text="user001@gmail.com"
                             android:textSize="15sp"
                             android:textStyle="bold"
-                            android:textColor="#000000"
-                            android:textDecoration="underline" />
+                            android:textColor="#000000"/>
+<!--                            android:textDecoration="underline" />-->
                     </LinearLayout>
 
                     <com.google.android.material.button.MaterialButton
