@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:fillViewport="true"
-    tools:context=".RegisterProfileActivity">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,30 +42,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nama Tempat"
-            android:textColor="@color/black"
-            android:textSize="14sp"
             android:textStyle="bold" />
-
         <EditText
-            android:id="@+id/et_username"
+            android:id="@+id/et_nama_tempat"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/border_green_rounded"
-            android:inputType="textPersonName"
             android:paddingHorizontal="16dp"
-            android:textColor="@color/black" />
+            android:inputType="text" />
 
+        <!-- Lokasi -->
         <TextView
-            android:id="@+id/label_lokasi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Lokasi"
-            android:textColor="@color/black"
-            android:textSize="14sp"
             android:textStyle="bold" />
-
         <EditText
             android:id="@+id/et_lokasi"
             android:layout_width="match_parent"
@@ -75,91 +66,93 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/border_green_rounded"
-            android:inputType="textPostalAddress"
             android:paddingHorizontal="16dp"
-            android:textColor="@color/black" />
+            android:inputType="textPostalAddress" />
 
+        <!-- Deskripsi (WAJIB) -->
         <TextView
-            android:id="@+id/label_negara"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Deskripsi"
+            android:textStyle="bold" />
+        <EditText
+            android:id="@+id/et_deskripsi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="80dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/border_green_rounded"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:maxLines="4" />
+
+        <!-- Negara (dropdown) -->
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Negara"
-            android:textColor="@color/black"
-            android:textSize="14sp"
             android:textStyle="bold" />
-
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/et_country"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/border_green_rounded"
-            android:clickable="true"
-            android:drawableEnd="@drawable/ic_dropdown"
-            android:focusable="false"
-            android:hint="Pilih Negara"
-            android:textColorHint="#A9A9A9"
             android:paddingHorizontal="16dp"
-            android:textColor="@color/black" />
+            android:drawableEnd="@drawable/ic_dropdown"
+            android:inputType="none"
+            android:focusable="true"
+            android:clickable="true"
+            android:privateImeOptions="null" />
 
+        <!-- Jenis Usaha (dropdown) -->
         <TextView
-            android:id="@+id/label_jenis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Jenis Usaha / Wisata"
-            android:textColor="@color/black"
-            android:textSize="14sp"
             android:textStyle="bold" />
-
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/et_jenis"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/border_green_rounded"
-            android:clickable="true"
-            android:drawableEnd="@drawable/ic_dropdown"
-            android:focusable="false"
-            android:hint="Pilih Jenis"
-            android:textColorHint="#A9A9A9"
             android:paddingHorizontal="16dp"
-            android:textColor="@color/black" />
+            android:drawableEnd="@drawable/ic_dropdown"
+            android:inputType="none"
+            android:focusable="true"
+            android:clickable="true" />
 
+        <!-- Telepon -->
         <TextView
-            android:id="@+id/label_telepon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nomor Telpon"
-            android:textColor="@color/black"
-            android:textSize="14sp"
+            android:text="Nomor Telepon"
             android:textStyle="bold" />
-
         <EditText
             android:id="@+id/et_telepon"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/border_green_rounded"
-            android:inputType="phone"
             android:paddingHorizontal="16dp"
-            android:textColor="@color/black" />
+            android:inputType="phone" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+        <Space android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_lanjutkan"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="40dp"
-            android:text="Lanjutkan"
+            android:text="Daftarkan Usaha"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="16sp"
             android:textStyle="bold"
             app:backgroundTint="@color/wtg_primary_green"
             app:cornerRadius="28dp" />

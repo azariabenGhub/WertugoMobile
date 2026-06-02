@@ -21,9 +21,10 @@ public class TokenManager {
     }
 
     public void clearToken() {
-        prefs.edit().remove(KEY_TOKEN).apply();
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.remove(KEY_TOKEN);
+        editor.apply(); // atau commit()
     }
-
     public boolean isLoggedIn() {
         return getToken() != null;
     }

@@ -69,6 +69,7 @@
 
                         <TextView
                             android:text="8,3/10"
+                            android:id="@+id/tv_rating_value"
                             android:textColor="@color/black"
                             android:textStyle="bold"
                             android:textSize="14sp"
@@ -79,6 +80,7 @@
 
                     <TextView
                         android:text="16,3 rb Rating"
+                        android:id="@+id/tv_rating_count"
                         android:textColor="#F0F0F0"
                         android:textSize="14sp"
                         android:layout_marginTop="4dp"
@@ -126,6 +128,7 @@
                         <TextView
                             android:text="15,3 rb orang menambahkan ke bucket list"
                             android:textColor="@color/black"
+                            android:id="@+id/tv_wishlist_count"
                             android:textSize="14sp"
                             android:textStyle="bold"
                             android:layout_marginStart="12dp"
@@ -174,6 +177,7 @@
 
                         <TextView
                             android:text="Buka hingga 17.00"
+                            android:id="@+id/tv_jam_buka"
                             android:textColor="@color/white"
                             android:textSize="14sp"
                             android:layout_marginStart="12dp"
@@ -232,6 +236,7 @@
 
                         <TextView
                             android:text="Otomatis Terbuka pada 10.00"
+                            android:id="@+id/tv_jam_tutup"
                             android:textColor="@color/white"
                             android:textSize="14sp"
                             android:layout_marginStart="12dp"

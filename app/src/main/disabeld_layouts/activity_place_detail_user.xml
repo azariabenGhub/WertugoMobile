@@ -196,7 +196,13 @@
                         <!-- Item Komen 1 -->
                         <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp">
                             <ImageView android:id="@+id/avatar1" android:layout_width="36dp" android:layout_height="36dp" android:src="@drawable/ic_profile" app:tint="@color/black"/>
-                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_toEndof="@id/avatar1" android:layout_toStartOf="@id/rate1" android:layout_marginStart="12dp">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_toEndOf="@id/avatar1"
+                                android:layout_toStartOf="@id/rate1"
+                                android:layout_marginStart="12dp">
                                 <TextView android:text="User001" android:textColor="@color/black" android:textStyle="bold" android:textSize="13sp"/>
                                 <TextView android:text="Nice place! what a good spot to attend, I would like to come here again." android:textColor="#444444" android:textSize="12sp" android:layout_marginTop="2dp"/>
                             </LinearLayout>
@@ -206,7 +212,13 @@
                         <!-- Item Komen 2 -->
                         <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
                             <ImageView android:id="@+id/avatar2" android:layout_width="36dp" android:layout_height="36dp" android:src="@drawable/ic_profile" app:tint="@color/black"/>
-                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_toEndof="@id/avatar2" android:layout_toStartOf="@id/rate2" android:layout_marginStart="12dp">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_toEndOf="@id/avatar2"
+                                android:layout_toStartOf="@id/rate2"
+                                android:layout_marginStart="12dp">
                                 <TextView android:text="User002" android:textColor="@color/black" android:textStyle="bold" android:textSize="13sp"/>
                                 <TextView android:text="I'll definetely come here again!" android:textColor="#444444" android:textSize="12sp" android:layout_marginTop="2dp"/>
                             </LinearLayout>

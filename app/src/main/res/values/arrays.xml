@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="country_list">
+        <item>Indonesia</item>
+        <item>Malaysia</item>
+        <item>Singapura</item>
+        <item>Thailand</item>
+        <item>China</item>
+    </string-array>
+
+    <string-array name="jenis_usaha_list">
+        <item>Kuliner &amp; Cafe</item>
+        <item>Wisata Alam</item>
+        <item>Theme Park</item>
+        <item>Hotel &amp; Penginapan</item>
+        <item>Oleh-oleh</item>
+    </string-array>
+</resources>

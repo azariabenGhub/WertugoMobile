@@ -63,11 +63,11 @@
                 android:layout_marginTop="4dp"
                 android:orientation="horizontal">
 
-                <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_on" app:tint="#FFC107" android:layout_marginEnd="2dp"/>
-                <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_on" app:tint="#FFC107" android:layout_marginEnd="2dp"/>
-                <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_on" app:tint="#FFC107" android:layout_marginEnd="2dp"/>
-                <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_on" app:tint="#FFC107" android:layout_marginEnd="2dp"/>
-                <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_off" app:tint="#D3D3D3"/>
+                <ImageView android:id="@+id/star1" android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_on" app:tint="#FFC107" android:layout_marginEnd="2dp"/>
+                <ImageView android:id="@+id/star2" android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_on" app:tint="#FFC107" android:layout_marginEnd="2dp"/>
+                <ImageView android:id="@+id/star3" android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_on" app:tint="#FFC107" android:layout_marginEnd="2dp"/>
+                <ImageView android:id="@+id/star4" android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_on" app:tint="#FFC107" android:layout_marginEnd="2dp"/>
+                <ImageView android:id="@+id/star5" android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_off" app:tint="#D3D3D3"/>
             </LinearLayout>
 
             <TextView

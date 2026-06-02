@@ -7,7 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.wertugo.R;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeUserActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         navProfile.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+            Intent intent = new Intent(HomeUserActivity.this, ProfileActivity.class);
             startActivity(intent);
         });
     }

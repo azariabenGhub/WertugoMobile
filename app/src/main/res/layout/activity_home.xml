@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".HomeUserActivity">
+    tools:context=".activities.HomeUserActivity">
 
     <!-- ========================================== -->
     <!-- LAYER 1: FIXED GREEN HEADER                -->
@@ -71,34 +71,94 @@
                     <!-- Tombol Wisata Alam -->
                     <LinearLayout
                         android:id="@+id/btn_categ_wisata"
-                        android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-                        android:orientation="vertical" android:gravity="center">
-                        <LinearLayout android:layout_width="60dp" android:layout_height="60dp" android:background="@drawable/bg_icon_kategori" android:backgroundTint="#008B09" android:gravity="center">
-                            <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/ic_wisata_alam" app:tint="@color/white" tools:ignore="ContentDescription"/>
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <LinearLayout
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:background="@drawable/bg_icon_kategori"
+                            android:backgroundTint="#008B09"
+                            android:gravity="center">
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:src="@drawable/ic_wisata_alam"
+                                app:tint="@color/white"
+                                tools:ignore="ContentDescription"/>
                         </LinearLayout>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="Wisata Alam" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Wisata Alam"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <!-- Tombol Kuliner & Cafe -->
                     <LinearLayout
                         android:id="@+id/btn_categ_kuliner"
-                        android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-                        android:orientation="vertical" android:gravity="center">
-                        <LinearLayout android:layout_width="60dp" android:layout_height="60dp" android:background="@drawable/bg_icon_kategori" android:backgroundTint="#008B09" android:gravity="center">
-                            <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/ic_kuliner" app:tint="@color/white" tools:ignore="ContentDescription"/>
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <LinearLayout
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:background="@drawable/bg_icon_kategori"
+                            android:backgroundTint="#008B09"
+                            android:gravity="center">
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:src="@drawable/ic_kuliner"
+                                app:tint="@color/white"
+                                tools:ignore="ContentDescription"/>
                         </LinearLayout>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="Kuliner &amp; Cafe" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Kuliner &amp; Cafe"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <!-- Tombol Theme Park -->
                     <LinearLayout
                         android:id="@+id/btn_categ_park"
-                        android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-                        android:orientation="vertical" android:gravity="center">
-                        <LinearLayout android:layout_width="60dp" android:layout_height="60dp" android:background="@drawable/bg_icon_kategori" android:backgroundTint="#008B09" android:gravity="center">
-                            <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/ic_theme_park" app:tint="@color/white" tools:ignore="ContentDescription"/>
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <LinearLayout
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:background="@drawable/bg_icon_kategori"
+                            android:backgroundTint="#008B09"
+                            android:gravity="center">
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:src="@drawable/ic_theme_park"
+                                app:tint="@color/white"
+                                tools:ignore="ContentDescription"/>
                         </LinearLayout>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="Theme Park" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Theme Park"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
@@ -122,9 +182,27 @@
                     app:cardElevation="0dp"
                     app:strokeColor="#008B09"
                     app:strokeWidth="1dp">
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal" android:gravity="center_vertical" android:paddingHorizontal="12dp">
-                        <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@android:drawable/ic_menu_search" app:tint="@color/black"/>
-                        <EditText android:id="@+id/et_home_search_filter" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginStart="8dp" android:background="@android:color/transparent" android:hint="Cari Wisata Alam..." android:textColor="@color/black" android:textSize="13sp" android:inputType="text"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="12dp">
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@android:drawable/ic_menu_search"
+                            app:tint="@color/black"/>
+                        <EditText
+                            android:id="@+id/et_home_search_filter"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="8dp"
+                            android:background="@android:color/transparent"
+                            android:hint="Cari Wisata Alam..."
+                            android:textColor="@color/black"
+                            android:textSize="13sp"
+                            android:inputType="text"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -139,7 +217,13 @@
                     app:strokeWidth="0dp"
                     android:clickable="true"
                     android:focusable="true">
-                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_menu_manage" app:tint="@color/white" android:layout_gravity="center" tools:ignore="ContentDescription"/>
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@android:drawable/ic_menu_manage"
+                        app:tint="@color/white"
+                        android:layout_gravity="center"
+                        tools:ignore="ContentDescription"/>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
@@ -168,20 +252,96 @@
                     app:cardCornerRadius="14dp"
                     app:cardElevation="0dp"
                     app:strokeWidth="0dp">
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-                            <com.google.android.material.imageview.ShapeableImageView android:layout_width="120dp" android:layout_height="85dp" android:src="@drawable/ic_profile" android:background="#E0E0E0" app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.MediumComponent"/>
-                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="12dp">
-                                <TextView android:text="Cafe Magdalena" android:textColor="@color/black" android:textSize="15sp" android:textStyle="bold"/>
-                                <TextView android:text="Jl. Langit No.13, Ujung Bumi" android:textColor="#666666" android:textSize="11sp" android:layout_marginTop="2dp" app:drawableStartCompat="@android:drawable/ic_menu_mylocation" app:drawableTint="#666666" android:drawablePadding="4dp"/>
-                                <TextView android:text="New Coffee Shop in town. Cafe Magdalena. Makanan enak, kopi enak, harga affordable, tempat keren dan live music." android:textColor="#444444" android:textSize="11sp" android:layout_marginTop="4dp" android:maxLines="2" android:ellipsize="end"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:layout_width="120dp"
+                                android:layout_height="85dp"
+                                android:src="@drawable/ic_profile"
+                                android:background="#E0E0E0"
+                                app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.MediumComponent"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginStart="12dp">
+                                <TextView
+                                    android:text="Cafe Magdalena"
+                                    android:textColor="@color/black"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                                <TextView
+                                    android:text="Jl. Langit No.13, Ujung Bumi"
+                                    android:textColor="#666666"
+                                    android:textSize="11sp"
+                                    android:layout_marginTop="2dp"
+                                    app:drawableStartCompat="@android:drawable/ic_menu_mylocation"
+                                    app:drawableTint="#666666"
+                                    android:drawablePadding="4dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                                <TextView
+                                    android:text="New Coffee Shop in town. Cafe Magdalena. Makanan enak, kopi enak, harga affordable, tempat keren dan live music."
+                                    android:textColor="#444444"
+                                    android:textSize="11sp"
+                                    android:layout_marginTop="4dp"
+                                    android:maxLines="2"
+                                    android:ellipsize="end"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
                             </LinearLayout>
                         </LinearLayout>
-                        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp">
-                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_alignParentStart="true">
-                                <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_on" app:tint="@color/black"/><ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_on" app:tint="@color/black"/><ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_on" app:tint="@color/black"/><ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_on" app:tint="@color/black"/><ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@android:drawable/btn_star_big_on" app:tint="@color/black"/>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_alignParentStart="true">
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@android:drawable/btn_star_big_on"
+                                    app:tint="@color/black"/>
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@android:drawable/btn_star_big_on"
+                                    app:tint="@color/black"/>
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@android:drawable/btn_star_big_on"
+                                    app:tint="@color/black"/>
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@android:drawable/btn_star_big_on"
+                                    app:tint="@color/black"/>
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@android:drawable/btn_star_big_on"
+                                    app:tint="@color/black"/>
                             </LinearLayout>
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="Lihat Selengkapnya →" android:textColor="#008B09" android:textStyle="bold" android:textSize="11sp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:text="Lihat Selengkapnya →"
+                                android:textColor="#008B09"
+                                android:textStyle="bold"
+                                android:textSize="11sp"/>
                         </RelativeLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -203,17 +363,57 @@
         android:gravity="center"
         android:paddingHorizontal="16dp"
         app:layout_constraintBottom_toBottomOf="parent">
-        <LinearLayout android:layout_width="75dp" android:layout_height="75dp" android:background="@drawable/bg_nav_active" android:gravity="center" android:layout_marginEnd="16dp">
-            <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/ic_home" app:tint="#FFFFFF" tools:ignore="ContentDescription"/>
+        <LinearLayout
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/bg_nav_active"
+            android:gravity="center"
+            android:layout_marginEnd="16dp">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_home"
+                android:id="@+id/nav_home"
+                app:tint="#FFFFFF"
+                tools:ignore="ContentDescription"/>
         </LinearLayout>
-        <LinearLayout android:layout_width="75dp" android:layout_height="75dp" android:gravity="center" android:layout_marginEnd="16dp">
-            <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/ic_search" app:tint="#FFFFFF" tools:ignore="ContentDescription"/>
+        <LinearLayout
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:gravity="center"
+            android:layout_marginEnd="16dp">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_search"
+                android:id="@+id/nav_search"
+                app:tint="#FFFFFF"
+                tools:ignore="ContentDescription"/>
         </LinearLayout>
-        <LinearLayout android:layout_width="75dp" android:layout_height="75dp" android:gravity="center" android:layout_marginEnd="16dp">
-            <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/ic_message" app:tint="#FFFFFF" tools:ignore="ContentDescription"/>
+        <LinearLayout
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:gravity="center"
+            android:layout_marginEnd="16dp">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/nav_message"
+                android:src="@drawable/ic_message"
+                app:tint="#FFFFFF"
+                tools:ignore="ContentDescription"/>
         </LinearLayout>
-        <LinearLayout android:layout_width="75dp" android:layout_height="75dp" android:gravity="center">
-            <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/ic_profile" app:tint="#FFFFFF" tools:ignore="ContentDescription"/>
+        <LinearLayout
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/nav_profile"
+                android:src="@drawable/ic_profile"
+                app:tint="#FFFFFF"
+                tools:ignore="ContentDescription"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -239,11 +439,49 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="12dp">
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Provinsi: Jawa Barat ▾" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" android:paddingVertical="6dp"/>
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Kota/Kab: Bandung ▾" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" android:paddingVertical="6dp"/>
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Rating: >4 ▾" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" android:paddingVertical="6dp"/>
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#33FFFFFF" android:layout_marginVertical="4dp"/>
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Sort By: Jumlah Ulasan ▾" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" android:paddingVertical="6dp"/>
+
+            <!-- Perbaikan: ditambahkan layout_width dan layout_height -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Provinsi: Jawa Barat ▾"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:paddingVertical="6dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kota/Kab: Bandung ▾"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:paddingVertical="6dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rating: >4 ▾"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:paddingVertical="6dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#33FFFFFF"
+                android:layout_marginVertical="4dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sort By: Jumlah Ulasan ▾"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:paddingVertical="6dp"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 

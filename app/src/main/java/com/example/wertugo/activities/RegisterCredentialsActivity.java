@@ -13,11 +13,18 @@ public class RegisterCredentialsActivity extends AppCompatActivity {
 
     private EditText etEmail, etPassword, etConfirmPassword;
     private Button btnDaftar;
+    private String role; // <-- tambahkan variabel untuk menyimpan role
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_credentials);
+
+        // Terima role dari intent sebelumnya (RegisterRoleActivity)
+        role = getIntent().getStringExtra("role");
+        if (role == null) {
+            role = "user"; // default jika tidak dikirim (misal dari tombol Traveller)
+        }
 
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
@@ -51,6 +58,7 @@ public class RegisterCredentialsActivity extends AppCompatActivity {
             Intent intent = new Intent(RegisterCredentialsActivity.this, RegisterProfileActivity.class);
             intent.putExtra("email", email);
             intent.putExtra("password", password);
+            intent.putExtra("role", role); // <-- kirim role ke RegisterProfileActivity
             startActivity(intent);
         });
     }

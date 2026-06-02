@@ -28,6 +28,18 @@ public class RegisterRoleActivity extends AppCompatActivity {
             Toast.makeText(this, "Fitur Pemilik Wisata belum tersedia", Toast.LENGTH_SHORT).show();
         });
 
+        btnPemilikWisata.setOnClickListener(v -> {
+            Intent intent = new Intent(RegisterRoleActivity.this, RegisterCredentialsActivity.class);
+            intent.putExtra("role", "umkm"); // tambahkan extra role
+            startActivity(intent);
+        });
+
+        btnTraveller.setOnClickListener(v -> {
+            Intent intent = new Intent(RegisterRoleActivity.this, RegisterCredentialsActivity.class);
+            intent.putExtra("role", "user"); // tambahkan extra role
+            startActivity(intent);
+        });
+
         tvLoginLink.setOnClickListener(v -> {
             Intent intent = new Intent(RegisterRoleActivity.this, LoginActivity.class);
             startActivity(intent);

@@ -28,8 +28,13 @@
         <activity android:name=".activities.RegisterCredentialsActivity" />
         <activity android:name=".activities.RegisterProfileActivity" />
         <activity android:name=".activities.LoginActivity" />
-        <activity android:name=".activities.HomeActivity" />
+        <activity android:name=".activities.HomeUserActivity" />
         <activity android:name=".activities.ProfileActivity" />
+        <activity android:name=".activities.RegisterUmkmActivity" />
+        <activity android:name=".activities.UmkmHomeActivity" />
+        <activity android:name=".activities.RegisterLegalitasActivity" />
+        <activity android:name=".activities.ReviewListActivity" />
+
     </application>
 
 </manifest>

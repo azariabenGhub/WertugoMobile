@@ -10,7 +10,11 @@ import com.example.wertugo.R;
 import com.example.wertugo.api.ApiService;
 import com.example.wertugo.api.ApiClient;
 import com.example.wertugo.api.models.ApiResponse;
+import com.example.wertugo.api.models.LoginRequest;
+import com.example.wertugo.api.models.LoginResponse;
 import com.example.wertugo.api.models.RegisterRequest;
+import com.example.wertugo.utils.TokenManager;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,15 +23,22 @@ public class RegisterProfileActivity extends AppCompatActivity {
 
     private EditText etUsername, etCountry;
     private Button btnLanjutkan;
-    private String email, password;
+    private String email, password, role;
+    private TokenManager tokenManager;
+    private ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_profile);
 
+        // Inisialisasi tokenManager dan apiService
+        tokenManager = new TokenManager(this);
+        apiService = ApiClient.getApiService();
+
         email = getIntent().getStringExtra("email");
         password = getIntent().getStringExtra("password");
+        role = getIntent().getStringExtra("role");
 
         etUsername = findViewById(R.id.et_username);
         etCountry = findViewById(R.id.et_country);
@@ -42,18 +53,15 @@ public class RegisterProfileActivity extends AppCompatActivity {
                 return;
             }
 
-            RegisterRequest request = new RegisterRequest(email, username, password, "user", country);
-            ApiService api = ApiClient.getApiService();
-            Call<ApiResponse> call = api.register(request);
+            RegisterRequest request = new RegisterRequest(email, username, password, role, country);
+            Call<ApiResponse> call = apiService.register(request);
             call.enqueue(new Callback<ApiResponse>() {
                 @Override
                 public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                     if (response.isSuccessful()) {
-                        Toast.makeText(RegisterProfileActivity.this, "Registrasi berhasil, silakan login", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(RegisterProfileActivity.this, LoginActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        finish();
+                        Toast.makeText(RegisterProfileActivity.this, "Registrasi berhasil", Toast.LENGTH_SHORT).show();
+                        // Auto login setelah registrasi sukses
+                        loginAutomatically(email, password);
                     } else {
                         Toast.makeText(RegisterProfileActivity.this, "Registrasi gagal: " + response.message(), Toast.LENGTH_SHORT).show();
                     }
@@ -64,6 +72,38 @@ public class RegisterProfileActivity extends AppCompatActivity {
                     Toast.makeText(RegisterProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
+        });
+    }
+
+    private void loginAutomatically(String email, String password) {
+        LoginRequest loginRequest = new LoginRequest(email, password);
+        Call<LoginResponse> loginCall = apiService.login(loginRequest); // Gunakan instance apiService
+        loginCall.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    String token = response.body().getAccessToken();
+                    tokenManager.saveToken(token);
+                    String userRole = response.body().getUser().getRole();
+                    if ("umkm".equals(userRole)) {
+                        startActivity(new Intent(RegisterProfileActivity.this, RegisterUmkmActivity.class));
+                    } else {
+                        startActivity(new Intent(RegisterProfileActivity.this, HomeUserActivity.class));
+                    }
+                    finish();
+                } else {
+                    Toast.makeText(RegisterProfileActivity.this, "Auto login gagal", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(RegisterProfileActivity.this, LoginActivity.class));
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Toast.makeText(RegisterProfileActivity.this, "Auto login error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(RegisterProfileActivity.this, LoginActivity.class));
+                finish();
+            }
         });
     }
 }
