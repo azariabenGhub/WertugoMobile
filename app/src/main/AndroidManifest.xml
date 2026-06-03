@@ -40,7 +40,9 @@
         <activity
             android:name=".activities.BucketListDetailActivity"
             android:exported="false" />
+        <activity
+            android:name=".activities.BucketPlaceDetailActivity"
+            android:exported="false" />
 
     </application>
-
 </manifest>

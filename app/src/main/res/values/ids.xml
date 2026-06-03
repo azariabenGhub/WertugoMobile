@@ -13,4 +13,5 @@
     <item name="nav_message" type="id" />
     <item name="fab_add_item" type="id" />
     <item name="rv_bucket_items" type="id" />
+    <item name="rv_recommendations" type="id" />
 </resources>

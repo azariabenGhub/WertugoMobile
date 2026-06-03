@@ -1,5 +1,6 @@
 package com.example.wertugo.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wertugo.R;
+import com.example.wertugo.activities.BucketPlaceDetailActivity;
 import com.example.wertugo.api.models.BucketListPlaceModel;
 
 import java.util.List;
@@ -18,9 +20,12 @@ import java.util.List;
 public class BucketListPlaceAdapter extends RecyclerView.Adapter<BucketListPlaceAdapter.PlaceViewHolder> {
 
     private List<BucketListPlaceModel> placeList;
+    private String bucketId; // Tambahan untuk menyimpan ID Room Bucket List
 
-    public BucketListPlaceAdapter(List<BucketListPlaceModel> placeList) {
+    // Konstruktor sekarang menerima bucketId juga
+    public BucketListPlaceAdapter(List<BucketListPlaceModel> placeList, String bucketId) {
         this.placeList = placeList;
+        this.bucketId = bucketId;
     }
 
     @NonNull
@@ -33,12 +38,25 @@ public class BucketListPlaceAdapter extends RecyclerView.Adapter<BucketListPlace
     @Override
     public void onBindViewHolder(@NonNull PlaceViewHolder holder, int position) {
         BucketListPlaceModel place = placeList.get(position);
+
         holder.tvName.setText(place.getNamaTempat());
         holder.tvLocation.setText(place.getLokasi() + " • " + place.getKategori());
 
+        // Event saat tombol hapus (ikon tong sampah) diklik
         holder.btnDelete.setOnClickListener(v -> {
-            // Nanti kita buat fungsi hapus ke API
             Toast.makeText(v.getContext(), "Fitur hapus menyusul!", Toast.LENGTH_SHORT).show();
+        });
+
+        // Event saat KARTU TEMPAT diklik -> Pindah ke Halaman Detail & Rating
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), BucketPlaceDetailActivity.class);
+            intent.putExtra("BUCKET_ID", bucketId);
+            intent.putExtra("PLACE_ID", place.getId());
+            intent.putExtra("PLACE_NAME", place.getNamaTempat());
+            intent.putExtra("PLACE_LOCATION", place.getLokasi());
+            intent.putExtra("PLACE_CATEGORY", place.getKategori());
+
+            v.getContext().startActivity(intent);
         });
     }
 

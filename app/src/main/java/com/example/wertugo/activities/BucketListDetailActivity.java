@@ -69,7 +69,7 @@ public class BucketListDetailActivity extends AppCompatActivity {
         rvBucketItems.setLayoutManager(new LinearLayoutManager(this));
 
         // Pasang Adapter ke RecyclerView
-        placeAdapter = new BucketListPlaceAdapter(placeList);
+        placeAdapter = new BucketListPlaceAdapter(placeList, bucketId);
         rvBucketItems.setAdapter(placeAdapter);
 
         // Panggil data dari API untuk menampilkan list tempat

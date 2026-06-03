@@ -117,7 +117,16 @@ public interface ApiService {
             @Part MultipartBody.Part sertifikat_halal_dokumen,
             @Part MultipartBody.Part sertifikat_usaha_pariwisata_dokumen
     );
-
+    // Mengirim rating dan komentar personal untuk suatu tempat di dalam bucket list
+    @FormUrlEncoded
+    @POST("bucketlist/{id}/rating")
+    Call<Map<String, Object>> ratePlace(
+            @Header("Authorization") String token,
+            @Path("id") String bucketId,
+            @Field("place_id") String placeId,
+            @Field("rating") int rating,
+            @Field("comment") String comment
+    );
     @GET("umkm/verification-status")
     Call<Map<String, Object>> getVerificationStatus(@Header("Authorization") String auth);
 
