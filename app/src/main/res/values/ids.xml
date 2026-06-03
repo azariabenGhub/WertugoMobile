@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="rv_detail_comments" type="id" />
+    <item name="tv_detail_desc" type="id" />
+    <item name="tv_detail_status" type="id" />
+    <item name="btn_back_detail" type="id" />
+    <item name="tv_detail_name" type="id" />
+    <item name="tv_detail_location" type="id" />
+    <item name="rb_input_rating" type="id" />
+    <item name="btn_add_bucketlist" type="id" />
+    <item name="et_comment_input" type="id" />
+    <item name="btn_send_comment" type="id" />
+    <item name="nav_message" type="id" />
+    <item name="fab_add_item" type="id" />
+    <item name="rv_bucket_items" type="id" />
+</resources>

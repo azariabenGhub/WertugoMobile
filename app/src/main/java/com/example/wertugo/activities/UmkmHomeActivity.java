@@ -36,6 +36,7 @@ public class UmkmHomeActivity extends AppCompatActivity {
     private TextView tvUbahBuka, tvUbahTutup, tvJamOperasionalBuka, tvJamOperasionalTutup;
     private TextView tvRatingValue, tvRatingCount, tvWishlistCount;
     private ImageView navHome, navStar, navProfile;
+    private String umkmId;
 
     private TokenManager tokenManager;
     private ApiService apiService;
@@ -72,7 +73,7 @@ public class UmkmHomeActivity extends AppCompatActivity {
         tvWishlistCount = findViewById(R.id.tv_wishlist_count); // "15,3 rb orang ..."
         // Jika tidak ada id di layout, gunakan findViewById dengan teks. Lebih baik modifikasi layout.
         // Untuk keperluan demo, kita skip update rating & wishlist.
-        navHome = findViewById(R.id.nav_home);
+        navHome = findViewById(R.id.nav_home_umkm);
         navStar = findViewById(R.id.nav_star);
         navProfile = findViewById(R.id.nav_profile);
     }
@@ -82,11 +83,17 @@ public class UmkmHomeActivity extends AppCompatActivity {
             // sudah di home
         });
         navStar.setOnClickListener(v -> {
-            // Arahkan ke halaman Wishlist / Bucketlist (belum ada, bisa toast)
-            Toast.makeText(this, "Fitur Wishlist segera hadir", Toast.LENGTH_SHORT).show();
+            if (umkmId == null) {
+                Toast.makeText(this, "Data UMKM belum siap", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Intent intent = new Intent(UmkmHomeActivity.this, ReviewListActivity.class);
+            intent.putExtra("place_id", umkmId);
+            intent.putExtra("is_umkm", true);
+            startActivity(intent);
         });
         navProfile.setOnClickListener(v -> {
-            startActivity(new Intent(UmkmHomeActivity.this, ProfileActivity.class));
+            startActivity(new Intent(UmkmHomeActivity.this, UmkmProfileActivity.class));
         });
     }
 
@@ -110,7 +117,22 @@ public class UmkmHomeActivity extends AppCompatActivity {
                         parseSchedule(jadwal);
 
                         // Update tampilan status
-                        updateStatusUI(isOpen);
+                        // updateStatusUI(isOpen);
+
+                        if (isOpen) {
+                            cardStatusBuka.setVisibility(View.VISIBLE);
+                            cardStatusTutup.setVisibility(View.GONE);
+                            if (tvJamOperasionalBuka != null)
+                                tvJamOperasionalBuka.setText("Buka hingga " + closeTime);
+                        } else {
+                            cardStatusBuka.setVisibility(View.GONE);
+                            cardStatusTutup.setVisibility(View.VISIBLE);
+                            if (tvJamOperasionalTutup != null)
+                                tvJamOperasionalTutup.setText("Otomatis Terbuka pada " + openTime);
+                        }
+
+                        umkmId = (String) data.get("_id");
+                        checkVerificationStatus();
 
                         // (Opsional) Ambil rating dan wishlist dari endpoint lain
                         loadStats();
@@ -134,14 +156,19 @@ public class UmkmHomeActivity extends AppCompatActivity {
 
     private void parseSchedule(List<Map<String, String>> jadwal) {
         if (jadwal == null || jadwal.isEmpty()) return;
-        // Ambil jadwal untuk hari ini (misal Monday, Tuesday...)
-        String today = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(new Date());
+        String today = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(new Date()); // TAMBAHKAN
+        boolean found = false;
         for (Map<String, String> schedule : jadwal) {
             if (schedule.get("day").equalsIgnoreCase(today)) {
                 openTime = schedule.get("open");
                 closeTime = schedule.get("close");
+                found = true;
                 break;
             }
+        }
+        if (!found && !jadwal.isEmpty()) {
+            openTime = jadwal.get(0).get("open");
+            closeTime = jadwal.get(0).get("close");
         }
     }
 

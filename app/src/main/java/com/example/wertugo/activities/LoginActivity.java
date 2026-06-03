@@ -26,12 +26,16 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
         tokenManager = new TokenManager(this);
-        // Cek token apakah sudah login (jika ya, langsung redirect berdasarkan role yang tersimpan)
-        // Catatan: tokenManager tidak menyimpan role, jadi lebih aman tidak redirect otomatis
-        // atau Anda bisa menyimpan role juga di SharedPreferences. Lewati dulu.
+
+        // CEK OTOMATIS SAAT BUKA APLIKASI
+        if (tokenManager.isLoggedIn()) {
+            redirectBasedOnRole(tokenManager.getRole());
+            return;
+        }
+
+        setContentView(R.layout.activity_login);
 
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
@@ -55,27 +59,24 @@ public class LoginActivity extends AppCompatActivity {
             LoginRequest request = new LoginRequest(email, password);
             ApiService api = ApiClient.getApiService();
             Call<LoginResponse> call = api.login(request);
+
             call.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         String token = response.body().getAccessToken();
-                        tokenManager.saveToken(token);
-
-                        // Ambil role dari response
                         String role = response.body().getUser().getRole();
-                        Toast.makeText(LoginActivity.this, "Login berhasil", Toast.LENGTH_SHORT).show();
 
-                        Intent intent;
-                        if ("umkm".equalsIgnoreCase(role)) {
-                            intent = new Intent(LoginActivity.this, UmkmHomeActivity.class);
-                        } else {
-                            // Default untuk user biasa atau admin
-                            intent = new Intent(LoginActivity.this, HomeUserActivity.class);
-                        }
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        finish();
+                        // ==========================================
+                        // PERBAIKAN: Ambil ID User dan Simpan!
+                        // ==========================================
+                        String userId = response.body().getUser().getId(); // Sesuaikan jika fungsinya get_id()
+
+                        tokenManager.saveToken(token, role);
+                        tokenManager.saveUserId(userId); // Simpan ID agar dikenali oleh fitur komentar
+
+                        Toast.makeText(LoginActivity.this, "Login berhasil", Toast.LENGTH_SHORT).show();
+                        redirectBasedOnRole(role);
                     } else {
                         Toast.makeText(LoginActivity.this, "Login gagal: email atau password salah", Toast.LENGTH_SHORT).show();
                     }
@@ -87,5 +88,18 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         });
+    }
+
+    private void redirectBasedOnRole(String role) {
+        Intent intent;
+        if ("umkm".equalsIgnoreCase(role)) {
+            intent = new Intent(LoginActivity.this, UmkmHomeActivity.class);
+        } else {
+            intent = new Intent(LoginActivity.this, HomeUserActivity.class);
+        }
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

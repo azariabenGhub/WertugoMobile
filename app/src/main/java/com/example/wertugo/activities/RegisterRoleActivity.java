@@ -36,7 +36,8 @@ public class RegisterRoleActivity extends AppCompatActivity {
 
         btnTraveller.setOnClickListener(v -> {
             Intent intent = new Intent(RegisterRoleActivity.this, RegisterCredentialsActivity.class);
-            intent.putExtra("role", "user"); // tambahkan extra role
+            intent.putExtra("role", "user");
+//            intent.putExtra("account_status", "active")// tambahkan extra role
             startActivity(intent);
         });
 

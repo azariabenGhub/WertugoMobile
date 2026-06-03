@@ -34,6 +34,12 @@
         <activity android:name=".activities.UmkmHomeActivity" />
         <activity android:name=".activities.RegisterLegalitasActivity" />
         <activity android:name=".activities.ReviewListActivity" />
+        <activity android:name=".activities.UmkmProfileActivity" />
+        <activity android:name=".activities.DetailTempatActivity" />
+        <activity android:name=".activities.BucketListMainActivity" />
+        <activity
+            android:name=".activities.BucketListDetailActivity"
+            android:exported="false" />
 
     </application>
 

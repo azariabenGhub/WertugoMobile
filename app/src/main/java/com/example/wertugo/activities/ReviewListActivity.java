@@ -142,12 +142,12 @@ public class ReviewListActivity extends AppCompatActivity {
         // Ambil view hasil include
         View bottomNavView = findViewById(R.id.bottom_nav_view);
 
-        ImageView navHome = bottomNavView.findViewById(R.id.nav_home);
+        ImageView navHome = bottomNavView.findViewById(R.id.nav_home_umkm);
         ImageView navStar = bottomNavView.findViewById(R.id.nav_star);
         ImageView navProfile = bottomNavView.findViewById(R.id.nav_profile);
 
         navHome.setOnClickListener(v -> {
-            startActivity(new Intent(this, HomeUserActivity.class));
+            startActivity(new Intent(ReviewListActivity.this, UmkmHomeActivity.class));
             finish();
         });
         navStar.setOnClickListener(v -> {

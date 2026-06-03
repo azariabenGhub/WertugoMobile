@@ -32,10 +32,10 @@ public class RegisterProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_profile);
 
-        // Inisialisasi tokenManager dan apiService
         tokenManager = new TokenManager(this);
-        apiService = ApiClient.getApiService();
+        apiService = ApiClient.getApiService(); // Pastikan tidak butuh parameter token
 
+        // Ambil data dari Intent sebelumnya
         email = getIntent().getStringExtra("email");
         password = getIntent().getStringExtra("password");
         role = getIntent().getStringExtra("role");
@@ -53,22 +53,28 @@ public class RegisterProfileActivity extends AppCompatActivity {
                 return;
             }
 
+            btnLanjutkan.setEnabled(false); // Cegah double klik saat loading
+
+            // Menggunakan RegisterRequest yang sudah otomatis mengisi account_status = "active"
             RegisterRequest request = new RegisterRequest(email, username, password, role, country);
+
             Call<ApiResponse> call = apiService.register(request);
+
             call.enqueue(new Callback<ApiResponse>() {
                 @Override
                 public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(RegisterProfileActivity.this, "Registrasi berhasil", Toast.LENGTH_SHORT).show();
-                        // Auto login setelah registrasi sukses
                         loginAutomatically(email, password);
                     } else {
+                        btnLanjutkan.setEnabled(true);
                         Toast.makeText(RegisterProfileActivity.this, "Registrasi gagal: " + response.message(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ApiResponse> call, Throwable t) {
+                    btnLanjutkan.setEnabled(true);
                     Toast.makeText(RegisterProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
@@ -77,13 +83,15 @@ public class RegisterProfileActivity extends AppCompatActivity {
 
     private void loginAutomatically(String email, String password) {
         LoginRequest loginRequest = new LoginRequest(email, password);
-        Call<LoginResponse> loginCall = apiService.login(loginRequest); // Gunakan instance apiService
+        Call<LoginResponse> loginCall = apiService.login(loginRequest);
+
         loginCall.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     String token = response.body().getAccessToken();
-                    tokenManager.saveToken(token);
+                    tokenManager.saveToken(token, role);
+
                     String userRole = response.body().getUser().getRole();
                     if ("umkm".equals(userRole)) {
                         startActivity(new Intent(RegisterProfileActivity.this, RegisterUmkmActivity.class));
@@ -92,7 +100,8 @@ public class RegisterProfileActivity extends AppCompatActivity {
                     }
                     finish();
                 } else {
-                    Toast.makeText(RegisterProfileActivity.this, "Auto login gagal", Toast.LENGTH_SHORT).show();
+                    btnLanjutkan.setEnabled(true);
+                    Toast.makeText(RegisterProfileActivity.this, "Auto login gagal, silakan login manual", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(RegisterProfileActivity.this, LoginActivity.class));
                     finish();
                 }
@@ -100,6 +109,7 @@ public class RegisterProfileActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
+                btnLanjutkan.setEnabled(true);
                 Toast.makeText(RegisterProfileActivity.this, "Auto login error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(RegisterProfileActivity.this, LoginActivity.class));
                 finish();

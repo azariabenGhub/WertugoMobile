@@ -7,23 +7,39 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.wertugo.R;
-import com.example.wertugo.utils.TokenManager; // pastikan class TokenManager ada
+import com.example.wertugo.utils.TokenManager;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        // Cek apakah user sudah login
+        // ==========================================
+        // 1. CEK STATUS LOGIN & ROLE SEBELUM MENGGAMBAR LAYAR
+        // ==========================================
         TokenManager tokenManager = new TokenManager(this);
         if (tokenManager.isLoggedIn()) {
-            // Jika sudah login, langsung ke Home
-            startActivity(new Intent(MainActivity.this, HomeUserActivity.class));
+            String role = tokenManager.getRole();
+
+            Intent intent;
+            if ("umkm".equalsIgnoreCase(role)) {
+                // Jika UMKM, lempar ke Beranda UMKM
+                intent = new Intent(MainActivity.this, UmkmHomeActivity.class);
+            } else {
+                // Jika User biasa, lempar ke Beranda User
+                intent = new Intent(MainActivity.this, HomeUserActivity.class);
+            }
+
+            startActivity(intent);
             finish();
-            return;
+            return; // Hentikan proses agar layar Welcome tidak perlu di-load
         }
+
+        // ==========================================
+        // 2. JIKA BELUM LOGIN, BARU TAMPILKAN HALAMAN WELCOME/MAIN
+        // ==========================================
+        setContentView(R.layout.activity_main);
 
         Button btnDaftar = findViewById(R.id.btn_daftar);
         TextView tvLoginLink = findViewById(R.id.tv_login_link);

@@ -7,6 +7,8 @@ import com.example.wertugo.api.models.RegisterRequest;
 
 import java.util.Map;
 
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Field;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -19,8 +21,71 @@ import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
+import retrofit2.http.Path;
+
 
 public interface ApiService {
+
+    // Endpoint untuk memanggil UmkmController@index
+    // ==========================================
+    // DATA BERANDA USER
+    // ==========================================
+    // Untuk klik detail tempat
+
+    // ==========================================
+    // DATA KOMENTAR DAN RATING
+    // ==========================================
+    @POST("places/{id}/comment")
+    Call<Map<String, Object>> postComment(
+            @Header("Authorization") String auth,
+            @Path("id") String placeId,
+            @Body Map<String, Object> body
+    );
+
+    // Mengambil detail bucket list beserta daftar tempatnya
+    @GET("bucketlist/{id}")
+    Call<Map<String, Object>> getBucketListDetail(
+            @Header("Authorization") String token,
+            @Path("id") String bucketId
+    );
+
+    // Menambah destinasi/tempat ke bucket list
+    // Menambah destinasi/tempat ke bucket list (dengan data lengkap)
+    @FormUrlEncoded
+    @POST("bucketlist/{id}/places")
+    Call<Map<String, Object>> addPlaceToBucketList(
+            @Header("Authorization") String token,
+            @Path("id") String bucketId,
+            @Field("place_id") String placeId,
+            @Field("nama_tempat") String namaTempat,
+            @Field("lokasi") String lokasi,
+            @Field("deskripsi") String deskripsi,
+            @Field("kategori") String kategori
+    );
+
+    // Mengambil daftar Bucket List milik user
+    @GET("bucketlist")
+    Call<Map<String, Object>> getBucketLists(@Header("Authorization") String token);
+
+    // Membuat Bucket List baru
+    @FormUrlEncoded
+    @POST("bucketlist")
+    Call<Map<String, Object>> createBucketList(
+            @Header("Authorization") String token,
+            @Field("title") String title // <-- Diubah menjadi title
+    );
+    // ==========================================
+    // KIRIM LAPORAN
+    // ==========================================
+    @POST("reports")
+    Call<Map<String, Object>> postReport(
+            @Header("Authorization") String auth,
+            @Body Map<String, Object> body
+    );
+    @GET("beranda/{id}")
+    Call<Map<String, Object>> getDetailTempat(@Header("Authorization") String auth, @Path("id") String placeId);
+    @GET("beranda")
+    Call<Map<String, Object>> getBerandaUser(@Header("Authorization") String auth);
     @POST("register")
     Call<ApiResponse> register(@Body RegisterRequest request);
 

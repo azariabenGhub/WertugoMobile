@@ -93,11 +93,19 @@ public class ProfileActivity extends AppCompatActivity {
         findViewById(R.id.nav_home).setOnClickListener(v -> {
             startActivity(new Intent(this, HomeUserActivity.class));
             finish();
+            overridePendingTransition(0, 0); // Biar transisinya mulus tanpa animasi geser
         });
+
         findViewById(R.id.nav_search).setOnClickListener(v ->
                 Toast.makeText(this, "Fitur pencarian belum tersedia", Toast.LENGTH_SHORT).show());
-        findViewById(R.id.nav_message).setOnClickListener(v ->
-                Toast.makeText(this, "Fitur pesan belum tersedia", Toast.LENGTH_SHORT).show());
+
+        // 🔽 UBAH BAGIAN INI 🔽
+        findViewById(R.id.nav_message).setOnClickListener(v -> {
+            Intent intent = new Intent(this, BucketListMainActivity.class);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(0, 0); // Biar transisinya mulus
+        });
     }
 
     private void initViews() {
