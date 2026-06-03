@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="rv_umkm_list" type="id">rv_umkm_list</item>
+    <item name="tvNamaUsaha" type="id">tvNamaUsaha</item>
+    <item name="tvLokasi" type="id">tvLokasi</item>
+    <item name="ivThumbnail" type="id">ivThumbnail</item>
+    <item name="ivVerified" type="id">ivVerified</item>
+</resources>

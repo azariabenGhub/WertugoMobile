@@ -1,9 +1,12 @@
 package com.example.wertugo.api;
 
+import com.example.wertugo.api.models.BerandaResponse;
+
 import com.example.wertugo.api.models.ApiResponse;
 import com.example.wertugo.api.models.LoginRequest;
 import com.example.wertugo.api.models.LoginResponse;
 import com.example.wertugo.api.models.RegisterRequest;
+
 
 import java.util.Map;
 
@@ -19,8 +22,12 @@ import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiService {
+
+    @GET("beranda/umkm")
+    Call<com.example.wertugo.api.models.BerandaResponse> getUmkmList(@Query("page") int page);
     @POST("register")
     Call<ApiResponse> register(@Body RegisterRequest request);
 
