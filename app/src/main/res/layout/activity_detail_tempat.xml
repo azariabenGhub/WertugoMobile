@@ -27,20 +27,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp">
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/vp_detail_carousel"
+                <ImageView
+                    android:id="@+id/iv_detail_thumbnail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#E0E0E0" />
-
-                <LinearLayout
-                    android:id="@+id/layout_dots_indicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="12dp"
-                    android:orientation="horizontal" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_placeholder" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btn_back_detail"
@@ -175,6 +167,26 @@
                     android:textSize="14sp"
                     android:layout_marginTop="8dp"
                     android:lineSpacingExtra="4dp" />
+
+                <TextView
+                    android:id="@+id/tv_gallery_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Galeri Foto"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="24dp"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_detail_gallery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 <View
                     android:layout_width="match_parent"

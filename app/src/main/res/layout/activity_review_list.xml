@@ -40,6 +40,7 @@
 
         <!-- Filter Rating -->
         <LinearLayout
+            android:id="@+id/btn_filter_rating"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
@@ -53,9 +54,10 @@
             android:paddingHorizontal="12dp">
 
             <TextView
+                android:id="@+id/tv_filter_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rating: 5"
+                android:text="Semua Rating"
                 android:textColor="#008B09"
                 android:textStyle="bold"
                 android:textSize="14sp"/>
@@ -70,6 +72,7 @@
 
         <!-- Sort By -->
         <LinearLayout
+            android:id="@+id/btn_sort_by"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
@@ -82,6 +85,7 @@
             android:paddingHorizontal="12dp">
 
             <TextView
+                android:id="@+id/tv_sort_by"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Terbaru"
@@ -98,24 +102,27 @@
     </LinearLayout>
 
     <!-- LIST ULASAN -->
+
+    <!-- NAVIGATION BAR -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_reviews"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        android:clipToPadding="false"
+        android:orientation="vertical"
         android:paddingHorizontal="32dp"
         android:paddingBottom="16dp"
-        android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical"
-        tools:itemCount="5"
-        app:layout_constraintTop_toBottomOf="@id/layout_filter"
         app:layout_constraintBottom_toTopOf="@id/bottom_nav_view"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_filter"
+        app:layout_constraintVertical_bias="0.0"
+        tools:itemCount="5"
         tools:listitem="@layout/item_review_card" />
 
-    <!-- NAVIGATION BAR -->
     <include
         android:id="@+id/bottom_nav_view"
         layout="@layout/layout_bottom_nav"

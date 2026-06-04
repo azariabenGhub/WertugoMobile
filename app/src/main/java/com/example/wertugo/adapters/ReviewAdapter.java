@@ -55,10 +55,20 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         // Format tanggal
         String formattedDate = review.getCreated_at();
         try {
-            Date date = inputFormat.parse(review.getCreated_at());
-            if (date != null) formattedDate = outputFormat.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            // Coba parsing format ISO 8601 (biasanya return dari Laravel JSON)
+            java.text.SimpleDateFormat isoFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault());
+            isoFormat.setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
+            Date date = isoFormat.parse(review.getCreated_at());
+            if (date != null) {
+                formattedDate = outputFormat.format(date);
+            }
+        } catch (ParseException e1) {
+            try {
+                Date date = inputFormat.parse(review.getCreated_at());
+                if (date != null) formattedDate = outputFormat.format(date);
+            } catch (ParseException e2) {
+                // Biarkan apa adanya jika masih gagal
+            }
         }
         holder.tvDate.setText(formattedDate);
 
@@ -68,7 +78,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         // Avatar (gunakan Glide jika ada URL)
         String avatarUrl = review.getUser_avatar();
         if (avatarUrl != null && !avatarUrl.isEmpty() && !avatarUrl.equals("default-profile.png")) {
-            String fullUrl = ApiClient.BASE_URL + "storage/" + avatarUrl;
+            String fullUrl = ApiClient.IMG_BASE_URL + avatarUrl;
             Glide.with(holder.itemView.getContext())
                     .load(fullUrl)
                     .placeholder(R.drawable.ic_default_profile)

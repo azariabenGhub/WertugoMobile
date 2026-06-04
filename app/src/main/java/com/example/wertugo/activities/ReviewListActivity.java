@@ -34,10 +34,19 @@ public class ReviewListActivity extends AppCompatActivity {
     private RecyclerView rvReviews;
     private ReviewAdapter reviewAdapter;
     private List<Review> reviewList = new ArrayList<>();
+    private List<Review> originalReviewList = new ArrayList<>();
     private TokenManager tokenManager;
     private ApiService apiService;
     private String placeId;
     private boolean isUmkm = false;
+
+    // View Components for Filter
+    private android.widget.LinearLayout btnFilterRating, btnSortBy;
+    private android.widget.TextView tvFilterRating, tvSortBy;
+    
+    // Filter State
+    private int currentRatingFilter = 0; // 0 = Semua
+    private boolean isSortLatest = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +72,15 @@ public class ReviewListActivity extends AppCompatActivity {
             showReplyDialog(review, position);
         });
         rvReviews.setAdapter(reviewAdapter);
+
+        // Setup Filter Buttons
+        btnFilterRating = findViewById(R.id.btn_filter_rating);
+        btnSortBy = findViewById(R.id.btn_sort_by);
+        tvFilterRating = findViewById(R.id.tv_filter_rating);
+        tvSortBy = findViewById(R.id.tv_sort_by);
+
+        btnFilterRating.setOnClickListener(v -> showRatingFilterMenu());
+        btnSortBy.setOnClickListener(v -> showSortMenu());
 
         loadReviews();
 
@@ -146,40 +164,108 @@ public class ReviewListActivity extends AppCompatActivity {
     private void parseReviews(Map<String, Object> responseBody) {
         try {
             Object dataObj = responseBody.get("data");
+            List<?> dataList = null;
             if (dataObj instanceof List) {
-                List<?> dataList = (List<?>) dataObj;
-                reviewList.clear();
+                dataList = (List<?>) dataObj;
+            } else if (dataObj instanceof Map) {
+                Map<String, Object> dataMap = (Map<String, Object>) dataObj;
+                if (dataMap.containsKey("comments")) {
+                    Object commentsObj = dataMap.get("comments");
+                    if (commentsObj instanceof List) {
+                        dataList = (List<?>) commentsObj;
+                    }
+                }
+            }
+
+            if (dataList != null) {
+                originalReviewList.clear();
                 for (Object item : dataList) {
                     if (item instanceof Map) {
                         Map<String, Object> map = (Map<String, Object>) item;
                         Review review = new Review();
-                        review.setId((String) map.get("id"));
-                        review.setUser_name((String) map.get("user_name"));
-                        review.setComment((String) map.get("comment"));
-                        review.setRating(((Number) map.get("rating")).floatValue());
-                        review.setCreated_at((String) map.get("created_at"));
-                        review.setUser_avatar((String) map.get("user_avatar"));
+                        review.setId(map.containsKey("id") ? String.valueOf(map.get("id")) : "");
+                        
+                        // Isi komentar di database ada di field "content"
+                        if (map.containsKey("content")) {
+                            review.setComment((String) map.get("content"));
+                        } else if (map.containsKey("comment")) {
+                            review.setComment((String) map.get("comment"));
+                        } else {
+                            review.setComment("");
+                        }
+                        
+                        if (map.containsKey("rating") && map.get("rating") != null) {
+                            review.setRating(((Number) map.get("rating")).floatValue());
+                        }
+                        review.setCreated_at(map.containsKey("created_at") ? (String) map.get("created_at") : "");
                         review.setReply(map.containsKey("reply") ? (String) map.get("reply") : null);
-                        reviewList.add(review);
+
+                        if (map.containsKey("user")) {
+                            Map<String, Object> userMap = (Map<String, Object>) map.get("user");
+                            review.setUser_name(userMap.containsKey("username") ? (String) userMap.get("username") : "User");
+                            review.setUser_avatar(userMap.containsKey("foto_profil") ? (String) userMap.get("foto_profil") : null);
+                        } else {
+                            review.setUser_name(map.containsKey("user_name") ? (String) map.get("user_name") : "User");
+                            review.setUser_avatar(map.containsKey("user_avatar") ? (String) map.get("user_avatar") : null);
+                        }
+                        originalReviewList.add(review);
                     }
                 }
-                reviewAdapter.updateList(reviewList);
-            } else if (dataObj instanceof Map) {
-                // jika response berupa single object (tidak array), tetap treat sebagai list
-                Map<String, Object> map = (Map<String, Object>) dataObj;
-                Review review = new Review();
-                review.setUser_name((String) map.get("user_name"));
-                review.setComment((String) map.get("comment"));
-                review.setRating(((Number) map.get("rating")).floatValue());
-                review.setCreated_at((String) map.get("created_at"));
-                review.setReply(map.containsKey("reply") ? (String) map.get("reply") : null);
-                reviewList.add(review);
-                reviewAdapter.updateList(reviewList);
+                applyFilters();
             }
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Gagal parsing data", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void showRatingFilterMenu() {
+        android.widget.PopupMenu popup = new android.widget.PopupMenu(this, btnFilterRating);
+        popup.getMenu().add(0, 0, 0, "Semua Rating");
+        popup.getMenu().add(0, 5, 1, "Bintang 5");
+        popup.getMenu().add(0, 4, 2, "Bintang 4");
+        popup.getMenu().add(0, 3, 3, "Bintang 3");
+        popup.getMenu().add(0, 2, 4, "Bintang 2");
+        popup.getMenu().add(0, 1, 5, "Bintang 1");
+        
+        popup.setOnMenuItemClickListener(item -> {
+            currentRatingFilter = item.getItemId();
+            tvFilterRating.setText(item.getTitle());
+            applyFilters();
+            return true;
+        });
+        popup.show();
+    }
+
+    private void showSortMenu() {
+        android.widget.PopupMenu popup = new android.widget.PopupMenu(this, btnSortBy);
+        popup.getMenu().add(0, 0, 0, "Terbaru");
+        popup.getMenu().add(0, 1, 1, "Terlama");
+        
+        popup.setOnMenuItemClickListener(item -> {
+            isSortLatest = (item.getItemId() == 0);
+            tvSortBy.setText(item.getTitle());
+            applyFilters();
+            return true;
+        });
+        popup.show();
+    }
+
+    private void applyFilters() {
+        reviewList.clear();
+        for (Review r : originalReviewList) {
+            if (currentRatingFilter == 0 || Math.round(r.getRating()) == currentRatingFilter) {
+                reviewList.add(r);
+            }
+        }
+        
+        java.util.Collections.sort(reviewList, (r1, r2) -> {
+            String date1 = r1.getCreated_at() != null ? r1.getCreated_at() : "";
+            String date2 = r2.getCreated_at() != null ? r2.getCreated_at() : "";
+            return isSortLatest ? date2.compareTo(date1) : date1.compareTo(date2);
+        });
+        
+        reviewAdapter.notifyDataSetChanged();
     }
 
     private void setupBottomNav() {

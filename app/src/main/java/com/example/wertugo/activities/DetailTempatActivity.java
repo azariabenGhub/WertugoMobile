@@ -33,12 +33,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import com.example.wertugo.adapters.GalleryAdapter; // IMPORT ADAPTER GALERI
+import com.bumptech.glide.Glide;
+
 public class DetailTempatActivity extends AppCompatActivity {
 
-    private TextView tvName, tvLocation, tvDesc, tvJadwal, tvStatusBuka;
-    private ImageView ivVerifiedBadge;
-    private ViewPager2 vpCarousel;
-    private android.widget.LinearLayout layoutDotsIndicator;
+    private TextView tvName, tvLocation, tvDesc, tvJadwal, tvStatusBuka, tvGalleryTitle;
+    private ImageView ivVerifiedBadge, ivThumbnail;
+    private RecyclerView rvGallery;
     private MaterialCardView btnBack, btnReportPlace;
     private com.google.android.material.button.MaterialButton btnAddBucketlist;
     private TokenManager tokenManager;
@@ -74,8 +76,9 @@ public class DetailTempatActivity extends AppCompatActivity {
             ivVerifiedBadge = findViewById(R.id.iv_verified_badge);
             tvStatusBuka = findViewById(R.id.tv_detail_status_buka);
 
-            vpCarousel = findViewById(R.id.vp_detail_carousel);
-            layoutDotsIndicator = findViewById(R.id.layout_dots_indicator);
+            ivThumbnail = findViewById(R.id.iv_detail_thumbnail);
+            rvGallery = findViewById(R.id.rv_detail_gallery);
+            tvGalleryTitle = findViewById(R.id.tv_gallery_title);
             btnBack = findViewById(R.id.btn_back_detail);
             btnReportPlace = findViewById(R.id.btn_report_place);
             btnAddBucketlist = findViewById(R.id.btn_add_bucketlist);
@@ -154,14 +157,17 @@ public class DetailTempatActivity extends AppCompatActivity {
                             }
 
                             // ==========================================
-                            // 1. FITUR GAMBAR (CAROUSEL BANNER & THUMBNAIL)
+                            // 1. FITUR GAMBAR (THUMBNAIL & GALERI)
                             // ==========================================
                             List<String> imageList = new ArrayList<>();
 
                             Object rawGambar = dataObj.get("gambar");
                             if (rawGambar != null && !String.valueOf(rawGambar).isEmpty() && !String.valueOf(rawGambar).equals("null")) {
                                 String imgStr = String.valueOf(rawGambar);
-                                imageList.add(ApiClient.IMG_BASE_URL  + imgStr);
+                                Glide.with(DetailTempatActivity.this)
+                                        .load(ApiClient.IMG_BASE_URL + imgStr)
+                                        .placeholder(R.drawable.bg_placeholder)
+                                        .into(ivThumbnail);
                             }
 
                             Object rawKatalog = dataObj.get("katalog_galeri");
@@ -176,9 +182,11 @@ public class DetailTempatActivity extends AppCompatActivity {
                             }
 
                             if (!imageList.isEmpty()) {
-                                BannerCarouselAdapter bannerAdapter = new BannerCarouselAdapter(imageList);
-                                vpCarousel.setAdapter(bannerAdapter);
-                                setupDotsIndicator(imageList.size());
+                                tvGalleryTitle.setVisibility(View.VISIBLE);
+                                rvGallery.setVisibility(View.VISIBLE);
+                                rvGallery.setLayoutManager(new LinearLayoutManager(DetailTempatActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                                GalleryAdapter galleryAdapter = new GalleryAdapter(imageList);
+                                rvGallery.setAdapter(galleryAdapter);
                             }
 
                             // ==========================================
@@ -248,34 +256,6 @@ public class DetailTempatActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
                 Toast.makeText(DetailTempatActivity.this, "Gagal koneksi: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void setupDotsIndicator(int count) {
-        if (layoutDotsIndicator == null) return;
-        layoutDotsIndicator.removeAllViews();
-        ImageView[] dots = new ImageView[count];
-        for (int i = 0; i < count; i++) {
-            dots[i] = new ImageView(this);
-            dots[i].setImageResource(R.drawable.ic_dot_inactive);
-            android.widget.LinearLayout.LayoutParams params = new android.widget.LinearLayout.LayoutParams(
-                    android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
-                    android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
-            );
-            params.setMargins(8, 0, 8, 0);
-            layoutDotsIndicator.addView(dots[i], params);
-        }
-        if (dots.length > 0) {
-            dots[0].setImageResource(R.drawable.ic_dot_active);
-        }
-        vpCarousel.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                for (int i = 0; i < dots.length; i++) {
-                    dots[i].setImageResource(i == position ? R.drawable.ic_dot_active : R.drawable.ic_dot_inactive);
-                }
             }
         });
     }
