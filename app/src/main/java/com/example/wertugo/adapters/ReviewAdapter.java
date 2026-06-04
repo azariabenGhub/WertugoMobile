@@ -25,9 +25,17 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     private List<Review> reviewList;
     private SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
     private SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+    private boolean isUmkm;
+    private OnReplyClickListener replyClickListener;
 
-    public ReviewAdapter(List<Review> reviewList) {
+    public interface OnReplyClickListener {
+        void onReplyClick(Review review, int position);
+    }
+
+    public ReviewAdapter(List<Review> reviewList, boolean isUmkm, OnReplyClickListener listener) {
         this.reviewList = reviewList;
+        this.isUmkm = isUmkm;
+        this.replyClickListener = listener;
     }
 
     @NonNull
@@ -69,6 +77,25 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         } else {
             holder.ivAvatar.setImageResource(R.drawable.ic_default_profile);
         }
+
+        // Reply UI Logic
+        if (review.getReply() != null && !review.getReply().trim().isEmpty()) {
+            holder.layoutReply.setVisibility(View.VISIBLE);
+            holder.tvReply.setText(review.getReply());
+            holder.btnReply.setVisibility(View.GONE);
+        } else {
+            holder.layoutReply.setVisibility(View.GONE);
+            if (isUmkm) {
+                holder.btnReply.setVisibility(View.VISIBLE);
+                holder.btnReply.setOnClickListener(v -> {
+                    if (replyClickListener != null) {
+                        replyClickListener.onReplyClick(review, position);
+                    }
+                });
+            } else {
+                holder.btnReply.setVisibility(View.GONE);
+            }
+        }
     }
 
     private void setRatingStars(ReviewViewHolder holder, float rating) {
@@ -104,6 +131,9 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     static class ReviewViewHolder extends RecyclerView.ViewHolder {
         ImageView ivAvatar;
         TextView tvName, tvDate, tvContent;
+        View layoutReply;
+        TextView tvReply;
+        TextView btnReply;
         // Star ImageViews perlu di-inisialisasi di item_review_card.xml dengan id star1..star5
         // Untuk sementara kita akses dengan findViewById di onBind
 
@@ -113,6 +143,9 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             tvName = itemView.findViewById(R.id.tv_reviewer_name);
             tvDate = itemView.findViewById(R.id.tv_review_date);
             tvContent = itemView.findViewById(R.id.tv_review_content);
+            layoutReply = itemView.findViewById(R.id.layout_reply);
+            tvReply = itemView.findViewById(R.id.tv_review_reply);
+            btnReply = itemView.findViewById(R.id.btn_reply_comment);
         }
     }
 }

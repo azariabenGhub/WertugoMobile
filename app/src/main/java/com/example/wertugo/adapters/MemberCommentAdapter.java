@@ -14,7 +14,7 @@ import com.example.wertugo.api.models.MemberCommentModel;
 
 import java.util.List;
 
-public class MemberCommentAdapter extends RecyclerView.Adapter<MemberCommentAdapter.CommentViewHolder> {
+public class MemberCommentAdapter extends RecyclerView.Adapter<MemberCommentAdapter.ViewHolder> {
 
     private List<MemberCommentModel> commentList;
 
@@ -24,17 +24,36 @@ public class MemberCommentAdapter extends RecyclerView.Adapter<MemberCommentAdap
 
     @NonNull
     @Override
-    public CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_member_comment, parent, false);
-        return new CommentViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MemberCommentModel comment = commentList.get(position);
-        holder.tvName.setText(comment.getUserName());
+
+        String name = comment.getUserName();
+        if (name == null || name.trim().isEmpty() || name.equals("null")) {
+            holder.tvName.setText("Anggota (Tanpa Nama)");
+        } else {
+            holder.tvName.setText(name);
+        }
+
+        // ==========================================
+        // PAKSA BINTANG MENYALA KUNING
+        // ==========================================
         holder.ratingBar.setRating(comment.getRating());
-        holder.tvText.setText(comment.getCommentText());
+
+        // Cek dan paksakan warna kuning dari Java
+        if (holder.ratingBar.getProgressDrawable() != null) {
+            holder.ratingBar.getProgressDrawable().setColorFilter(
+                    android.graphics.Color.parseColor("#FFC107"),
+                    android.graphics.PorterDuff.Mode.SRC_ATOP
+            );
+        }
+
+        holder.tvComment.setText(comment.getComment());
     }
 
     @Override
@@ -42,15 +61,15 @@ public class MemberCommentAdapter extends RecyclerView.Adapter<MemberCommentAdap
         return commentList.size();
     }
 
-    public static class CommentViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvText;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvName, tvComment;
         RatingBar ratingBar;
 
-        public CommentViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.tv_commenter_name);
-            tvText = itemView.findViewById(R.id.tv_commenter_text);
-            ratingBar = itemView.findViewById(R.id.rating_commenter_stars);
+            tvName = itemView.findViewById(R.id.tv_comment_user_name);
+            tvComment = itemView.findViewById(R.id.tv_comment_text);
+            ratingBar = itemView.findViewById(R.id.rb_comment_rating);
         }
     }
 }

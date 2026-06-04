@@ -36,6 +36,7 @@ public class BucketListMainActivity extends AppCompatActivity {
     private MaterialCardView fabCreateBucket;
     private View viewDimOverlay;
     private EditText etSearchBucket;
+    private ImageView btnInvitations;
 
     private TokenManager tokenManager;
     private ApiService apiService;
@@ -58,8 +59,13 @@ public class BucketListMainActivity extends AppCompatActivity {
 
         // Tombol FAB (+) diklik
         fabCreateBucket.setOnClickListener(v -> showCreateBucketDialog());
+    }
 
-        // Ambil data asli dari server
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // AUTO-REFRESH: Setiap kali halaman utama ini dibuka kembali (setelah Back),
+        // kita paksa mengambil data terupdate dari server Laravel
         fetchBucketLists();
     }
 
@@ -69,6 +75,9 @@ public class BucketListMainActivity extends AppCompatActivity {
         fabCreateBucket = findViewById(R.id.fab_create_bucket);
         viewDimOverlay = findViewById(R.id.view_dim_overlay_bucket);
         etSearchBucket = findViewById(R.id.et_search_bucket);
+        btnInvitations = findViewById(R.id.btn_invitations);
+
+        btnInvitations.setOnClickListener(v -> showInvitationsDialog());
     }
 
     private void setupRecyclerView() {
@@ -78,32 +87,32 @@ public class BucketListMainActivity extends AppCompatActivity {
     }
 
     private void setupNavbar() {
-        ImageView navHome = findViewById(R.id.nav_home);
-        ImageView navSearch = findViewById(R.id.nav_search);
-        ImageView navMessage = findViewById(R.id.nav_message);
-        ImageView navProfile = findViewById(R.id.nav_profile);
-
-        // Aktifkan background kotak hijau pada menu Bucket List
-        android.widget.LinearLayout navContainerMessage = findViewById(R.id.nav_message).getParent() instanceof android.widget.LinearLayout ? (android.widget.LinearLayout) findViewById(R.id.nav_message).getParent() : null;
-        if (navContainerMessage != null) {
-            navContainerMessage.setBackgroundResource(R.drawable.bg_nav_active);
-        }
-
-        navHome.setOnClickListener(v -> {
-            startActivity(new Intent(this, HomeUserActivity.class));
-            finish();
-            overridePendingTransition(0, 0);
-        });
-
-        navSearch.setOnClickListener(v ->
-                Toast.makeText(this, "Fitur pencarian belum tersedia", Toast.LENGTH_SHORT).show());
-
-        // navMessage sudah tidak usah di-klik karena sedang di halaman ini
-
-        navProfile.setOnClickListener(v -> {
-            startActivity(new Intent(this, ProfileActivity.class));
-            finish();
-            overridePendingTransition(0, 0);
+        com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation_traveller);
+        bottomNav.setSelectedItemId(R.id.nav_bucketlist);
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                Intent intent = new Intent(this, HomeUserActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+                return true;
+            } else if (itemId == R.id.nav_search) {
+                Intent intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+                return true;
+            } else if (itemId == R.id.nav_bucketlist) {
+                return true;
+            } else if (itemId == R.id.nav_profile) {
+                Intent intent = new Intent(this, ProfileActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+                return true;
+            }
+            return false;
         });
     }
 
@@ -119,7 +128,7 @@ public class BucketListMainActivity extends AppCompatActivity {
                             if (dataList != null && !dataList.isEmpty()) {
                                 for (Map<String, Object> item : dataList) {
 
-                                    // FIX: Mengecek "id" atau "_id" secara dinamis dan aman dari tipe data angka/string
+                                    // Mengecek "id" atau "_id" secara dinamis dan aman
                                     String id = "";
                                     if (item.get("id") != null) {
                                         id = String.valueOf(item.get("id"));
@@ -129,11 +138,24 @@ public class BucketListMainActivity extends AppCompatActivity {
 
                                     String nama = (String) item.get("title"); // Sesuai kolom di Laravel
 
-                                    // Mengonversi nilai Double dari GSON secara aman ke Integer
-                                    int totalMember = item.get("total_member") != null ? ((Double) item.get("total_member")).intValue() : 1;
-                                    int totalTempat = item.get("total_tempat") != null ? ((Double) item.get("total_tempat")).intValue() : 0;
+                                    // SINKRONISASI FIX: Mengambil data hitungan asli dari variabel response Laravel
+                                    int totalMember = 1;
+                                    if (item.get("member_count") != null) {
+                                        totalMember = (int) Double.parseDouble(String.valueOf(item.get("member_count")));
+                                    }
 
-                                    bucketList.add(new BucketListModel(id, nama, totalMember, totalTempat));
+                                    int totalTempat = 0;
+                                    if (item.get("tempat_count") != null) {
+                                        totalTempat = (int) Double.parseDouble(String.valueOf(item.get("tempat_count")));
+                                    }
+
+                                    // ==========================================
+                                    // FIX: TANGKAP GAMBAR DARI API
+                                    // ==========================================
+                                    String gambar = item.get("gambar") != null ? String.valueOf(item.get("gambar")) : "";
+
+                                    // FIX: MASUKKAN GAMBAR SEBAGAI PARAMETER KE-5
+                                    bucketList.add(new BucketListModel(id, nama, totalMember, totalTempat, gambar));
                                 }
 
                                 layoutEmptyBucket.setVisibility(View.GONE);
@@ -154,27 +176,20 @@ public class BucketListMainActivity extends AppCompatActivity {
     }
 
     private void showCreateBucketDialog() {
-        // 1. Gelapkan background utama
         viewDimOverlay.setVisibility(View.VISIBLE);
 
-        // 2. Siapkan Dialog
         android.app.Dialog dialog = new android.app.Dialog(this);
         dialog.setContentView(R.layout.dialog_create_bucket);
 
-        // Bikin background asli dialog jadi transparan agar sudut melengkung (radius) dari CardView terlihat
         dialog.getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
-        // Lebarkan dialog ke samping
         dialog.getWindow().setLayout(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        // 3. Kenalkan elemen di dalam XML Dialog
         EditText etNewName = dialog.findViewById(R.id.et_new_bucket_name);
         TextView btnCancel = dialog.findViewById(R.id.btn_cancel_dialog);
         com.google.android.material.button.MaterialButton btnCreate = dialog.findViewById(R.id.btn_create_dialog);
 
-        // 4. Pasang tombol Batal
         btnCancel.setOnClickListener(v -> dialog.dismiss());
 
-        // 5. Pasang tombol Buat (Kirim ke API)
         btnCreate.setOnClickListener(v -> {
             String bucketName = etNewName.getText().toString().trim();
             if (bucketName.isEmpty()) {
@@ -182,7 +197,6 @@ public class BucketListMainActivity extends AppCompatActivity {
                 return;
             }
 
-            // Kunci tombol biar user tidak spam klik
             btnCreate.setEnabled(false);
             btnCreate.setText("Membuat...");
 
@@ -193,8 +207,6 @@ public class BucketListMainActivity extends AppCompatActivity {
                             if (response.isSuccessful()) {
                                 Toast.makeText(BucketListMainActivity.this, "Berhasil dibuat!", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
-
-                                // Refresh daftar otomatis setelah berhasil buat
                                 fetchBucketLists();
                             } else {
                                 Toast.makeText(BucketListMainActivity.this, "Gagal membuat Bucket List", Toast.LENGTH_SHORT).show();
@@ -212,10 +224,144 @@ public class BucketListMainActivity extends AppCompatActivity {
                     });
         });
 
-        // 6. Kalau dialog ditutup (entah klik batal, atau klik luar kotak), hilangkan layar gelap
         dialog.setOnDismissListener(dialogInterface -> viewDimOverlay.setVisibility(View.GONE));
-
-        // 7. Tampilkan
         dialog.show();
+    }
+
+    private void showInvitationsDialog() {
+        viewDimOverlay.setVisibility(View.VISIBLE);
+
+        android.app.Dialog dialog = new android.app.Dialog(this);
+        dialog.setContentView(R.layout.dialog_create_bucket); // Kita recycle dulu layoutnya dan ubah secara dinamis untuk menghemat waktu
+        dialog.getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.getWindow().setLayout(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        TextView tvTitle = dialog.findViewById(R.id.tv_dialog_title);
+        if(tvTitle != null) tvTitle.setText("Undangan Kolaborasi");
+
+        EditText etNewName = dialog.findViewById(R.id.et_new_bucket_name);
+        if(etNewName != null) etNewName.setVisibility(View.GONE);
+
+        TextView btnCancel = dialog.findViewById(R.id.btn_cancel_dialog);
+        if(btnCancel != null) btnCancel.setText("Tutup");
+
+        com.google.android.material.button.MaterialButton btnCreate = dialog.findViewById(R.id.btn_create_dialog);
+        if(btnCreate != null) btnCreate.setVisibility(View.GONE);
+
+        // Tambahkan ScrollView dan LinearLayout untuk daftar undangan
+        LinearLayout parentLayout = (LinearLayout) etNewName.getParent();
+        android.widget.ScrollView scrollView = new android.widget.ScrollView(this);
+        LinearLayout listLayout = new LinearLayout(this);
+        listLayout.setOrientation(LinearLayout.VERTICAL);
+        scrollView.addView(listLayout);
+        parentLayout.addView(scrollView, 1);
+
+        TextView tvLoading = new TextView(this);
+        tvLoading.setText("Memuat undangan...");
+        tvLoading.setPadding(0, 16, 0, 16);
+        listLayout.addView(tvLoading);
+
+        apiService.getInvitations("Bearer " + tokenManager.getToken())
+                .enqueue(new Callback<Map<String, Object>>() {
+                    @Override
+                    public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                        listLayout.removeAllViews();
+                        if (response.isSuccessful() && response.body() != null) {
+                            List<Map<String, Object>> data = (List<Map<String, Object>>) response.body().get("data");
+                            if (data == null || data.isEmpty()) {
+                                TextView tvEmpty = new TextView(BucketListMainActivity.this);
+                                tvEmpty.setText("Tidak ada undangan baru.");
+                                tvEmpty.setPadding(0, 16, 0, 16);
+                                listLayout.addView(tvEmpty);
+                            } else {
+                                for (Map<String, Object> inv : data) {
+                                    String bucketId = (String) inv.get("bucketlist_id");
+                                    String inviterId = (String) inv.get("inviter_id");
+                                    
+                                    LinearLayout itemLayout = new LinearLayout(BucketListMainActivity.this);
+                                    itemLayout.setOrientation(LinearLayout.VERTICAL);
+                                    itemLayout.setPadding(0, 16, 0, 24);
+                                    
+                                    String inviterName = (String) inv.get("inviter_name");
+                                    if(inviterName == null) inviterName = "Seseorang";
+                                    String bucketTitle = (String) inv.get("bucket_title");
+                                    if(bucketTitle == null) bucketTitle = "Bucket List";
+                                    
+                                    TextView tvInfo = new TextView(BucketListMainActivity.this);
+                                    tvInfo.setText(inviterName + " mengundang Anda ke " + bucketTitle + "!");
+                                    tvInfo.setTextColor(android.graphics.Color.BLACK);
+                                    itemLayout.addView(tvInfo);
+
+                                    LinearLayout btnLayout = new LinearLayout(BucketListMainActivity.this);
+                                    btnLayout.setOrientation(LinearLayout.HORIZONTAL);
+                                    btnLayout.setPadding(0, 8, 0, 0);
+
+                                    com.google.android.material.button.MaterialButton btnTerima = new com.google.android.material.button.MaterialButton(BucketListMainActivity.this);
+                                    btnTerima.setText("Terima");
+                                    btnTerima.setBackgroundColor(android.graphics.Color.parseColor("#008B09"));
+                                    btnTerima.setTextColor(android.graphics.Color.WHITE);
+                                    btnTerima.setOnClickListener(v -> respondToInvitation(bucketId, true, dialog));
+
+                                    com.google.android.material.button.MaterialButton btnTolak = new com.google.android.material.button.MaterialButton(BucketListMainActivity.this);
+                                    btnTolak.setText("Tolak");
+                                    btnTolak.setBackgroundColor(android.graphics.Color.parseColor("#D32F2F"));
+                                    btnTolak.setTextColor(android.graphics.Color.WHITE);
+                                    btnTolak.setOnClickListener(v -> respondToInvitation(bucketId, false, dialog));
+
+                                    btnLayout.addView(btnTerima);
+                                    
+                                    View space = new View(BucketListMainActivity.this);
+                                    space.setLayoutParams(new LinearLayout.LayoutParams(16, 1));
+                                    btnLayout.addView(space);
+                                    
+                                    btnLayout.addView(btnTolak);
+                                    itemLayout.addView(btnLayout);
+
+                                    listLayout.addView(itemLayout);
+                                }
+                            }
+                        } else {
+                            TextView tvError = new TextView(BucketListMainActivity.this);
+                            tvError.setText("Gagal memuat undangan.");
+                            listLayout.addView(tvError);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                        listLayout.removeAllViews();
+                        TextView tvError = new TextView(BucketListMainActivity.this);
+                        tvError.setText("Error jaringan.");
+                        listLayout.addView(tvError);
+                    }
+                });
+
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
+        dialog.setOnDismissListener(dialogInterface -> viewDimOverlay.setVisibility(View.GONE));
+        dialog.show();
+    }
+
+    private void respondToInvitation(String bucketId, boolean accept, android.app.Dialog parentDialog) {
+        Map<String, Boolean> body = new java.util.HashMap<>();
+        body.put("accept", accept);
+
+        apiService.joinSharedList("Bearer " + tokenManager.getToken(), bucketId, body)
+                .enqueue(new Callback<Map<String, Object>>() {
+                    @Override
+                    public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(BucketListMainActivity.this, accept ? "Berhasil bergabung!" : "Undangan ditolak", Toast.LENGTH_SHORT).show();
+                            parentDialog.dismiss();
+                            fetchBucketLists();
+                        } else {
+                            Toast.makeText(BucketListMainActivity.this, "Gagal memproses undangan", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                        Toast.makeText(BucketListMainActivity.this, "Error Jaringan", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

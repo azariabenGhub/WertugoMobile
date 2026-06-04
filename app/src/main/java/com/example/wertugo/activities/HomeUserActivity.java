@@ -106,37 +106,28 @@ public class HomeUserActivity extends AppCompatActivity {
     }
 
     private void setupNavbar() {
-        ImageView navHome = findViewById(R.id.nav_home);
-        ImageView navSearch = findViewById(R.id.nav_search);
-        ImageView navMessage = findViewById(R.id.nav_message);
-        ImageView navProfile = findViewById(R.id.nav_profile);
-
-        // Pengamanan 3: Cek null sebelum memasang Click Listener
-        if (navSearch != null) {
-            navSearch.setOnClickListener(v -> Toast.makeText(this, "Fitur pencarian segera hadir", Toast.LENGTH_SHORT).show());
-        }
-
-        if (navMessage != null) {
-            navMessage.setOnClickListener(v -> {
-                Intent intent = new Intent(HomeUserActivity.this, BucketListMainActivity.class);
+        com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation_traveller);
+        bottomNav.setSelectedItemId(R.id.nav_home);
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                return true;
+            } else if (itemId == R.id.nav_search) {
+                Intent intent = new Intent(HomeUserActivity.this, SearchActivity.class);
                 startActivity(intent);
+                return true;
+            } else if (itemId == R.id.nav_bucketlist) {
+                startActivity(new Intent(HomeUserActivity.this, BucketListMainActivity.class));
                 finish();
                 overridePendingTransition(0, 0);
-            });
-        }
-
-        if (navProfile != null) {
-            navProfile.setOnClickListener(v -> {
-                Intent intent = new Intent(HomeUserActivity.this, ProfileActivity.class);
-                startActivity(intent);
+                return true;
+            } else if (itemId == R.id.nav_profile) {
+                startActivity(new Intent(HomeUserActivity.this, ProfileActivity.class));
                 finish();
                 overridePendingTransition(0, 0);
-            });
-        }
-
-        // Aktifkan background kotak hijau dengan cara aman dari getParent()
-        if (navHome != null && navHome.getParent() instanceof android.widget.LinearLayout) {
-            ((android.widget.LinearLayout) navHome.getParent()).setBackgroundResource(R.drawable.bg_nav_active);
-        }
+                return true;
+            }
+            return false;
+        });
     }
 }

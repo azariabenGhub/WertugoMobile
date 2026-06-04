@@ -79,6 +79,47 @@
                 android:textColor="#333333"
                 android:textSize="13sp"
                 android:lineSpacingMultiplier="1.1"/>
+
+            <!-- Reply Section -->
+            <LinearLayout
+                android:id="@+id/layout_reply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:background="#F9F9F9"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Balasan Pemilik:"
+                    android:textStyle="bold"
+                    android:textColor="#333333"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/tv_review_reply"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="#555555"
+                    android:textSize="12sp"
+                    android:text="Terima kasih atas kunjungannya!"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btn_reply_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Balas Ulasan"
+                android:textColor="#4CAF50"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                android:padding="4dp"/>
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

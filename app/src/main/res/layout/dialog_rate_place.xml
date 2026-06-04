@@ -40,7 +40,8 @@
             android:layout_height="wrap_content"
             android:numStars="5"
             android:stepSize="1"
-            android:progressTint="@color/black"
+            android:progressTint="#FFC107"
+            android:progressBackgroundTint="#E0E0E0"
             android:layout_marginBottom="16dp"/>
 
         <TextView

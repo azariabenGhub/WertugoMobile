@@ -14,4 +14,6 @@
     <item name="fab_add_item" type="id" />
     <item name="rv_bucket_items" type="id" />
     <item name="rv_recommendations" type="id" />
+    <item name="iv_detail_header" type="id" />
+    <item name="tv_detail_jadwal" type="id" />
 </resources>

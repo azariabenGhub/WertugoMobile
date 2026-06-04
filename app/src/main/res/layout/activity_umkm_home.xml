@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -18,241 +17,280 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="32dp"
-            android:paddingVertical="40dp">
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="32dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Selamat Siang!"
                 android:textColor="@color/black"
-                android:textSize="34sp"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 android:fontFamily="sans-serif-black"
-                android:layout_marginBottom="32dp"/>
+                android:layout_marginBottom="24dp"/>
 
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="24dp"
-                app:cardBackgroundColor="#3CA0E1"
-                app:cardElevation="0dp"
-                app:strokeWidth="0dp">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="24dp">
-
-                    <TextView
-                        android:text="Rating"
-                        android:textColor="@color/white"
-                        android:textSize="28sp"
-                        android:textStyle="bold"
-                        android:fontFamily="sans-serif-black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="#3CA0E1"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="16dp">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_card_star" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="20dp">
 
                         <TextView
-                            android:text="8,3/10"
-                            android:id="@+id/tv_rating_value"
-                            android:textColor="@color/black"
+                            android:text="Rating"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
                             android:textStyle="bold"
-                            android:textSize="14sp"
-                            android:layout_marginStart="12dp"
+                            android:fontFamily="sans-serif-black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="12dp">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@android:drawable/star_on" />
+
+                            <TextView
+                                android:text="- / 5.0"
+                                android:id="@+id/tv_rating_value"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                android:layout_marginStart="8dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:text="0 Ulasan"
+                            android:id="@+id/tv_rating_count"
+                            android:textColor="#F0F0F0"
+                            android:textSize="12sp"
+                            android:layout_marginTop="8dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-                    <TextView
-                        android:text="16,3 rb Rating"
-                        android:id="@+id/tv_rating_count"
-                        android:textColor="#F0F0F0"
-                        android:textSize="14sp"
-                        android:layout_marginTop="4dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="24dp"
-                app:cardBackgroundColor="#FF9100"
-                app:cardElevation="0dp"
-                app:strokeWidth="0dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="24dp">
-
-                    <TextView
-                        android:text="Wishlist"
-                        android:textColor="@color/white"
-                        android:textSize="28sp"
-                        android:textStyle="bold"
-                        android:fontFamily="sans-serif-black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="#FF9100"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="16dp">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_card_bookmark" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="20dp">
 
                         <TextView
-                            android:text="15,3 rb orang menambahkan ke bucket list"
-                            android:textColor="@color/black"
-                            android:id="@+id/tv_wishlist_count"
-                            android:textSize="14sp"
+                            android:text="Wishlist"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
                             android:textStyle="bold"
-                            android:layout_marginStart="12dp"
+                            android:fontFamily="sans-serif-black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="12dp">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@android:drawable/ic_menu_save"
+                                app:tint="@color/white"/>
+
+                            <TextView
+                                android:text="0x Disimpan"
+                                android:textColor="@color/white"
+                                android:id="@+id/tv_wishlist_count"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:layout_marginStart="8dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:text="di Bucket List"
+                            android:textColor="#F0F0F0"
+                            android:textSize="12sp"
+                            android:layout_marginTop="8dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_status_buka"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
-                app:cardCornerRadius="24dp"
-                app:cardBackgroundColor="#008B09"
+                android:layout_marginTop="24dp"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
-                app:strokeWidth="0dp">
+                app:strokeWidth="1dp"
+                app:strokeColor="#E0E0E0">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="24dp">
-
-                    <TextView
-                        android:text="Buka"
-                        android:textColor="@color/white"
-                        android:textSize="28sp"
-                        android:textStyle="bold"
-                        android:fontFamily="sans-serif-black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    android:padding="20dp">
 
                     <LinearLayout
+                        android:id="@+id/layout_unverified"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Status: Menunggu Verifikasi"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:textColor="#D32F2F"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Segera lengkapi dokumen legalitas Anda agar mendapatkan centang hijau resmi."
+                            android:textSize="14sp"
+                            android:layout_marginTop="6dp"
+                            android:textColor="#666666"/>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_lengkapi_dokumen"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="Lengkapi Dokumen"
+                            app:backgroundTint="#D32F2F"
+                            app:cornerRadius="20dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_verified"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:layout_marginTop="16dp">
+                        android:visibility="gone">
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_card_check_circle" />
-
-                        <TextView
-                            android:text="Buka hingga 17.00"
-                            android:id="@+id/tv_jam_buka"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:layout_marginStart="12dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@android:drawable/presence_online"
+                            app:tint="#008B09"/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginStart="16dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Mitra Resmi Wertugo"
+                                android:textStyle="bold"
+                                android:textSize="18sp"
+                                android:textColor="#008B09"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Usaha Anda telah terverifikasi resmi."
+                                android:textSize="14sp"
+                                android:textColor="#666666"/>
+                        </LinearLayout>
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/tv_click_ubah_buka"
-                        android:text="Ubah Status >"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:textSize="14sp"
-                        android:layout_marginTop="24dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_status_tutup"
+                android:id="@+id/card_tip_galeri"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:visibility="gone"
-                app:cardCornerRadius="24dp"
-                app:cardBackgroundColor="#E74C3C"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="#E3F2FD"
                 app:cardElevation="0dp"
-                app:strokeWidth="0dp">
+                app:strokeWidth="1dp"
+                app:strokeColor="#90CAF9">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="24dp">
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:gravity="center_vertical">
 
-                    <TextView
-                        android:text="Tutup"
-                        android:textColor="@color/white"
-                        android:textSize="28sp"
-                        android:textStyle="bold"
-                        android:fontFamily="sans-serif-black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@android:drawable/ic_menu_gallery"
+                        app:tint="#1976D2" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="16dp">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_card_cancel_circle" />
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="16dp">
 
                         <TextView
-                            android:text="Otomatis Terbuka pada 10.00"
-                            android:id="@+id/tv_jam_tutup"
-                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tip: Lengkapi Galeri!"
+                            android:textStyle="bold"
                             android:textSize="14sp"
-                            android:layout_marginStart="12dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:textColor="#1976D2"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tambahkan foto agar tempat Anda lebih menarik."
+                            android:textSize="12sp"
+                            android:layout_marginTop="2dp"
+                            android:textColor="#1565C0"/>
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_click_ubah_tutup"
-                        android:text="Ubah Status >"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:textSize="14sp"
-                        android:layout_marginTop="24dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@android:drawable/ic_menu_send"
+                        app:tint="#1976D2" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

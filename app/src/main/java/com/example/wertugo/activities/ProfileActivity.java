@@ -53,7 +53,8 @@ public class ProfileActivity extends AppCompatActivity {
     private EditText etUsername;
     private AutoCompleteTextView etCountry;
     private TextView tvEmail;
-    private MaterialButton btnSave, btnLogout;
+    private MaterialButton btnSave;
+    private ImageView btnLogout;
     private TokenManager tokenManager;
     private ApiService apiService;
     private Uri selectedImageUri = null;
@@ -86,26 +87,51 @@ public class ProfileActivity extends AppCompatActivity {
         ivProfilePicture.setOnClickListener(v -> checkPermissionAndOpenGallery());
         findViewById(R.id.btn_change_email).setOnClickListener(v -> showChangeEmailDialog());
         findViewById(R.id.btn_change_password).setOnClickListener(v -> showChangePasswordDialog());
+        boolean fromUmkm = getIntent().getBooleanExtra("from_umkm", false);
+
         btnSave.setOnClickListener(v -> updateProfile());
-        btnLogout.setOnClickListener(v -> logout());
 
-        // Navbar
-        findViewById(R.id.nav_home).setOnClickListener(v -> {
-            startActivity(new Intent(this, HomeUserActivity.class));
-            finish();
-            overridePendingTransition(0, 0); // Biar transisinya mulus tanpa animasi geser
-        });
+        if (fromUmkm) {
+            // Dibuka dari UMKM: tombol kanan = back, bukan logout
+            btnLogout.setImageResource(android.R.drawable.ic_menu_revert);
+            btnLogout.setOnClickListener(v -> finish());
+        } else {
+            btnLogout.setOnClickListener(v -> logout());
+        }
 
-        findViewById(R.id.nav_search).setOnClickListener(v ->
-                Toast.makeText(this, "Fitur pencarian belum tersedia", Toast.LENGTH_SHORT).show());
 
-        // 🔽 UBAH BAGIAN INI 🔽
-        findViewById(R.id.nav_message).setOnClickListener(v -> {
-            Intent intent = new Intent(this, BucketListMainActivity.class);
-            startActivity(intent);
-            finish();
-            overridePendingTransition(0, 0); // Biar transisinya mulus
-        });
+        com.google.android.material.bottomnavigation.BottomNavigationView navTraveller = findViewById(R.id.bottom_navigation_traveller);
+        com.google.android.material.bottomnavigation.BottomNavigationView navUmkm = findViewById(R.id.bottom_nav_view);
+
+        if (fromUmkm) {
+            // Sub-page dari UMKM: sembunyikan semua nav, cukup gunakan tombol back
+            navTraveller.setVisibility(android.view.View.GONE);
+            navUmkm.setVisibility(android.view.View.GONE);
+        } else {
+            // Traveller: tampilkan nav traveller
+            navUmkm.setVisibility(android.view.View.GONE);
+            navTraveller.setVisibility(android.view.View.VISIBLE);
+            navTraveller.setSelectedItemId(R.id.nav_profile);
+            navTraveller.setOnItemSelectedListener(item -> {
+                int itemId = item.getItemId();
+                if (itemId == R.id.nav_home) {
+                    startActivity(new Intent(ProfileActivity.this, HomeUserActivity.class));
+                    finish();
+                    return true;
+                } else if (itemId == R.id.nav_search) {
+                    startActivity(new Intent(ProfileActivity.this, SearchActivity.class));
+                    finish();
+                    return true;
+                } else if (itemId == R.id.nav_bucketlist) {
+                    startActivity(new Intent(ProfileActivity.this, BucketListMainActivity.class));
+                    finish();
+                    return true;
+                } else if (itemId == R.id.nav_profile) {
+                    return true;
+                }
+                return false;
+            });
+        }
     }
 
     private void initViews() {
@@ -154,8 +180,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                     // 🔽🔽🔽 LETAKKAN KODE GLIDE DI SINI 🔽🔽🔽
                     if (fotoUrl != null && !fotoUrl.equals("default-profile.png")) {
-                        // Sesuaikan BASE_URL dengan ApiClient.BASE_URL (misal "http://10.0.2.2:8000/")
-                        String fullUrl = ApiClient.BASE_URL + fotoUrl;
+                        // Sesuaikan BASE_URL dengan ApiClient.IMG_BASE_URL
+                        String fullUrl = ApiClient.IMG_BASE_URL + fotoUrl;
                         Glide.with(ProfileActivity.this)
                                 .load(fullUrl)
                                 .diskCacheStrategy(DiskCacheStrategy.NONE)   // Jangan simpan cache disk

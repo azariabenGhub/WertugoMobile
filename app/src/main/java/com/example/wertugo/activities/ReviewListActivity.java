@@ -59,7 +59,9 @@ public class ReviewListActivity extends AppCompatActivity {
 
         rvReviews = findViewById(R.id.rv_reviews);
         rvReviews.setLayoutManager(new LinearLayoutManager(this));
-        reviewAdapter = new ReviewAdapter(reviewList);
+        reviewAdapter = new ReviewAdapter(reviewList, isUmkm, (review, position) -> {
+            showReplyDialog(review, position);
+        });
         rvReviews.setAdapter(reviewAdapter);
 
         loadReviews();
@@ -101,6 +103,46 @@ public class ReviewListActivity extends AppCompatActivity {
         });
     }
 
+    private void showReplyDialog(Review review, int position) {
+        android.widget.EditText input = new android.widget.EditText(this);
+        input.setHint("Ketik balasan Anda...");
+        input.setPadding(32, 32, 32, 32);
+        
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Balas Ulasan")
+                .setView(input)
+                .setPositiveButton("Kirim", (dialog, which) -> {
+                    String replyText = input.getText().toString().trim();
+                    if (!replyText.isEmpty()) {
+                        sendReply(review, position, replyText);
+                    }
+                })
+                .setNegativeButton("Batal", null)
+                .show();
+    }
+
+    private void sendReply(Review review, int position, String replyText) {
+        String token = tokenManager.getToken();
+        apiService.replyComment("Bearer " + token, review.getId(), replyText)
+                .enqueue(new Callback<Map<String, Object>>() {
+                    @Override
+                    public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(ReviewListActivity.this, "Balasan terkirim", Toast.LENGTH_SHORT).show();
+                            review.setReply(replyText);
+                            reviewAdapter.notifyItemChanged(position);
+                        } else {
+                            Toast.makeText(ReviewListActivity.this, "Gagal mengirim balasan", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                        Toast.makeText(ReviewListActivity.this, "Error Jaringan", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
     private void parseReviews(Map<String, Object> responseBody) {
         try {
             Object dataObj = responseBody.get("data");
@@ -117,6 +159,7 @@ public class ReviewListActivity extends AppCompatActivity {
                         review.setRating(((Number) map.get("rating")).floatValue());
                         review.setCreated_at((String) map.get("created_at"));
                         review.setUser_avatar((String) map.get("user_avatar"));
+                        review.setReply(map.containsKey("reply") ? (String) map.get("reply") : null);
                         reviewList.add(review);
                     }
                 }
@@ -129,6 +172,7 @@ public class ReviewListActivity extends AppCompatActivity {
                 review.setComment((String) map.get("comment"));
                 review.setRating(((Number) map.get("rating")).floatValue());
                 review.setCreated_at((String) map.get("created_at"));
+                review.setReply(map.containsKey("reply") ? (String) map.get("reply") : null);
                 reviewList.add(review);
                 reviewAdapter.updateList(reviewList);
             }
@@ -139,22 +183,26 @@ public class ReviewListActivity extends AppCompatActivity {
     }
 
     private void setupBottomNav() {
-        // Ambil view hasil include
-        View bottomNavView = findViewById(R.id.bottom_nav_view);
-
-        ImageView navHome = bottomNavView.findViewById(R.id.nav_home_umkm);
-        ImageView navStar = bottomNavView.findViewById(R.id.nav_star);
-        ImageView navProfile = bottomNavView.findViewById(R.id.nav_profile);
-
-        navHome.setOnClickListener(v -> {
-            startActivity(new Intent(ReviewListActivity.this, UmkmHomeActivity.class));
-            finish();
-        });
-        navStar.setOnClickListener(v -> {
-            Toast.makeText(this, "Fitur Wishlist segera hadir", Toast.LENGTH_SHORT).show();
-        });
-        navProfile.setOnClickListener(v -> {
-            startActivity(new Intent(this, ProfileActivity.class));
+        com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_view);
+        bottomNav.setSelectedItemId(R.id.nav_star);
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home_umkm) {
+                Intent intent = new Intent(this, isUmkm ? UmkmHomeActivity.class : HomeUserActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+            } else if (itemId == R.id.nav_star) {
+                return true;
+            } else if (itemId == R.id.nav_profile) {
+                Intent intent = new Intent(this, isUmkm ? UmkmProfileActivity.class : ProfileActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+            }
+            return false;
         });
     }
 }

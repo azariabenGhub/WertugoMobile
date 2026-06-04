@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wertugo.R;
+import com.example.wertugo.api.ApiClient;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 import java.util.Map;
@@ -56,12 +58,28 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         holder.tvRating.setText(rawRating != null ? rawRating + "/5" : "0/5");
 
         String displayUsername = "Anonim";
+        String fotoUrl = null;
         if (comment.containsKey("user") && comment.get("user") instanceof Map) {
             Map<String, Object> userObj = (Map<String, Object>) comment.get("user");
             Object rawUsername = userObj.get("username");
             displayUsername = rawUsername != null ? String.valueOf(rawUsername) : "Anonim";
+            Object rawFoto = userObj.get("foto_profil");
+            fotoUrl = rawFoto != null ? String.valueOf(rawFoto) : null;
         }
         holder.tvUsername.setText(displayUsername);
+
+        // Load foto profil user jika ada
+        if (fotoUrl != null && !fotoUrl.equals("default-profile.png") && !fotoUrl.isEmpty()) {
+            String fullUrl = ApiClient.IMG_BASE_URL + fotoUrl;
+            Glide.with(holder.itemView.getContext())
+                    .load(fullUrl)
+                    .circleCrop()
+                    .placeholder(R.drawable.ic_profile) // Sesuaikan id drawable
+                    .error(R.drawable.ic_profile)
+                    .into(holder.ivAvatar);
+        } else {
+            holder.ivAvatar.setImageResource(R.drawable.ic_profile);
+        }
 
         // LOGIKA: Sembunyikan tombol Report jika ini adalah komentar miliknya sendiri
         if (currentUserId != null && currentUserId.equals(reportedUserId)) {
@@ -86,7 +104,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvUsername, tvText, tvRating;
-        ImageView btnReport;
+        ImageView btnReport, ivAvatar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -94,6 +112,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             tvText = itemView.findViewById(R.id.tv_comment_text);
             tvRating = itemView.findViewById(R.id.tv_comment_rating);
             btnReport = itemView.findViewById(R.id.btn_report_comment);
+            ivAvatar = itemView.findViewById(R.id.iv_comment_avatar);
         }
     }
 }

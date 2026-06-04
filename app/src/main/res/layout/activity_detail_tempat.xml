@@ -9,9 +9,14 @@
     tools:context=".activities.DetailTempatActivity">
 
     <ScrollView
+        android:id="@+id/scroll_view_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,13 +27,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp">
 
-                <ImageView
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vp_detail_carousel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:background="#E0E0E0"
-                    android:src="@drawable/bg_category"
-                    tools:ignore="ContentDescription" />
+                    android:background="#E0E0E0" />
+
+                <LinearLayout
+                    android:id="@+id/layout_dots_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btn_back_detail"
@@ -49,6 +61,27 @@
                         app:tint="@color/white"
                         tools:ignore="ContentDescription" />
                 </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_report_place"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="16dp"
+                    android:layout_alignParentEnd="true"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="#80000000"
+                    app:strokeWidth="0dp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@android:drawable/ic_dialog_alert"
+                        app:tint="#FF3D00"
+                        tools:ignore="ContentDescription" />
+                </com.google.android.material.card.MaterialCardView>
             </RelativeLayout>
 
             <LinearLayout
@@ -57,14 +90,30 @@
                 android:orientation="vertical"
                 android:padding="24dp">
 
-                <TextView
-                    android:id="@+id/tv_detail_name"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Memuat Nama..."
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tv_detail_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Memuat Nama..."
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/iv_verified_badge"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="8dp"
+                        android:src="@android:drawable/presence_online"
+                        app:tint="#008B09"
+                        android:visibility="gone" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_detail_location"
@@ -75,20 +124,33 @@
                     android:textSize="14sp"
                     android:layout_marginTop="8dp" />
 
+                <TextView
+                    android:id="@+id/tv_detail_status_buka"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Memuat status..."
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="4dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_green_rounded_filled" />
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    app:cardBackgroundColor="#E8F5E9"
+                    app:cardBackgroundColor="#F0F0F0"
                     app:cardCornerRadius="8dp"
                     app:strokeWidth="0dp">
 
                     <TextView
-                        android:id="@+id/tv_detail_status"
+                        android:id="@+id/tv_detail_jadwal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Status: Buka / Tutup"
-                        android:textColor="#008B09"
+                        android:text="Jadwal: Memuat..."
+                        android:textColor="#333333"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:paddingHorizontal="12dp"

@@ -11,9 +11,9 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:usesCleartextTraffic="true"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_wertugo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_wertugo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Wertugo">
         <activity
@@ -37,8 +37,21 @@
         <activity android:name=".activities.UmkmProfileActivity" />
         <activity android:name=".activities.DetailTempatActivity" />
         <activity android:name=".activities.BucketListMainActivity" />
+        <activity android:name=".activities.UploadGaleriActivity" />
         <activity
             android:name=".activities.BucketListDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AdminInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.JadwalOperasionalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.EditInfoTempatActivity"
             android:exported="false" />
         <activity
             android:name=".activities.BucketPlaceDetailActivity"

@@ -21,11 +21,17 @@ public class BucketListPlaceAdapter extends RecyclerView.Adapter<BucketListPlace
 
     private List<BucketListPlaceModel> placeList;
     private String bucketId; // Tambahan untuk menyimpan ID Room Bucket List
+    private OnPlaceDeleteListener deleteListener;
+
+    public interface OnPlaceDeleteListener {
+        void onDeleteClick(BucketListPlaceModel place, int position);
+    }
 
     // Konstruktor sekarang menerima bucketId juga
-    public BucketListPlaceAdapter(List<BucketListPlaceModel> placeList, String bucketId) {
+    public BucketListPlaceAdapter(List<BucketListPlaceModel> placeList, String bucketId, OnPlaceDeleteListener deleteListener) {
         this.placeList = placeList;
         this.bucketId = bucketId;
+        this.deleteListener = deleteListener;
     }
 
     @NonNull
@@ -44,7 +50,9 @@ public class BucketListPlaceAdapter extends RecyclerView.Adapter<BucketListPlace
 
         // Event saat tombol hapus (ikon tong sampah) diklik
         holder.btnDelete.setOnClickListener(v -> {
-            Toast.makeText(v.getContext(), "Fitur hapus menyusul!", Toast.LENGTH_SHORT).show();
+            if (deleteListener != null) {
+                deleteListener.onDeleteClick(place, position);
+            }
         });
 
         // Event saat KARTU TEMPAT diklik -> Pindah ke Halaman Detail & Rating

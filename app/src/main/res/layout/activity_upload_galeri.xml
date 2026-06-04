@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F9FA">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Header & Tombol Back -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="24dp">
+                <ImageView
+                    android:id="@+id/btn_back_galeri"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@android:drawable/ic_menu_revert"
+                    app:tint="@color/black"
+                    android:clickable="true"
+                    android:focusable="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kelola Galeri"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="16dp"/>
+            </LinearLayout>
+
+            <!-- ================= BAGIAN THUMBNAIL ================= -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1. Foto Utama (Thumbnail)"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Foto ini akan jadi wajah depan tempatmu di beranda."
+                android:textColor="#666666"
+                android:textSize="12sp"
+                android:layout_marginBottom="12dp"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="2dp"
+                app:strokeColor="#E0E0E0"
+                android:layout_marginBottom="12dp">
+
+                <ImageView
+                    android:id="@+id/iv_preview_thumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@android:drawable/ic_menu_gallery"
+                    app:tint="#CCCCCC"
+                    android:padding="48dp"
+                    android:background="#EFEFEF"/>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_pilih_thumbnail"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:text="Pilih Thumbnail"
+                android:textColor="#008B09"
+                android:textStyle="bold"
+                app:strokeColor="#008B09"
+                app:cornerRadius="12dp"
+                android:layout_marginBottom="32dp"/>
+
+            <!-- ================= BAGIAN BANNER / CAROUSEL ================= -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2. Foto Carousel (Banner)"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pilih beberapa foto sekaligus (Tekan tahan saat milih di Galeri HP)."
+                android:textColor="#666666"
+                android:textSize="12sp"
+                android:layout_marginBottom="12dp"/>
+
+            <!-- Tempat naruh preview gambar banyak -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:scrollbars="none"
+                android:layout_marginBottom="12dp">
+                <LinearLayout
+                    android:id="@+id/layout_banner_preview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tv_belum_ada_banner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Belum ada foto carousel yang dipilih"
+                        android:textColor="#999999"
+                        android:textStyle="italic"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_pilih_banner"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:text="Pilih Banyak Foto"
+                android:textColor="#FF9100"
+                android:textStyle="bold"
+                app:strokeColor="#FF9100"
+                app:cornerRadius="12dp"
+                android:layout_marginBottom="32dp"/>
+
+            <!-- ================= TOMBOL UPLOAD FINAL ================= -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_unggah_semua"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Simpan &amp; Unggah Galeri"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:backgroundTint="#008B09"
+                app:cornerRadius="12dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

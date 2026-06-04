@@ -8,9 +8,13 @@ public class Review {
     private float rating;
     private String comment;
     private String created_at;
+    private String reply;
 
     // Constructor, getters, and setters
     public Review() {}
+
+    public String getReply() { return reply; }
+    public void setReply(String reply) { this.reply = reply; }
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
